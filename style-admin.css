@@ -1,0 +1,43 @@
+/*
+Theme Name:   vi_theme [Admin style]
+Theme URI:    http://neathawk.us
+Description:  style for teh admin area
+Author:       Joseph Neathawk
+Author URI:   http://neathawk.us
+Template:     version_8_theme
+Version:      8.3.200306
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl.html
+Tags:         jpnp
+Text Domain:  vi_theme
+*/
+/*
+element {
+	layout(position)
+
+	content(text)
+
+	design(background)
+
+	other(z-index)
+}
+
+
+/*--------------------------------------------------------------
+# override WP stuff
+--------------------------------------------------------------*/
+
+/* override WP stuff */
+ul.wp-block-gallery{
+    margin:0;
+}
+.block-editor-block-list__block[data-type="core/embed"][data-align="left"] .block-editor-block-list__block-edit,
+.block-editor-block-list__block[data-type="core/embed"][data-align="right"] .block-editor-block-list__block-edit,
+.wp-block-embed.alignleft, .wp-block-embed.alignright {
+    max-width: 50%;
+    width: auto;
+}
+/* override wp editor height */
+.wp-block-html .block-editor-plain-text {
+    max-height: unset;
+}
