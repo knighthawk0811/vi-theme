@@ -1048,6 +1048,10 @@ body.post,
 body.page {
     margin:0;
 }
+.content-container {
+	margin:0 auto;
+	max-width:900px;
+}
 /*--------------------------------------------------------------
 # General Elements
 --------------------------------------------------------------*/
@@ -1254,8 +1258,9 @@ body > .modal-backdrop {
 # Templates
 --------------------------------------------------------------*/
 /* parallax-simple */
-body.page-template-parallax-simplepage .featured-image-header {
-	min-height: 20rem;
+body.page-template-parallax-simplepage .featured-image-header,
+body.page-template-parallax-simplepage .featured-image-footer {
+	min-height: 20em;
 
 	background-attachment: fixed;
 	background-color: rgba(0,0,0,0);

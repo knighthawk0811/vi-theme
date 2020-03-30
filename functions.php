@@ -445,29 +445,52 @@ function vi_featured_image_header()
 {
     global $post;
 
+    //featured image
     if( has_post_thumbnail($post->ID) ) :
         //set to thumbnail
-        $featured_image_header_portrait = 'background-image:url(' . get_the_post_thumbnail_url($post->ID, 'crop-portrait') . ');';
-        $featured_image_header_landscape = 'background-image:url(' . get_the_post_thumbnail_url($post->ID, 'crop-landscape') . ');';
+        $featured_image_portrait = 'background-image:url(' . get_the_post_thumbnail_url($post->ID, 'crop-portrait') . ');';
+        $featured_image_landscape = 'background-image:url(' . get_the_post_thumbnail_url($post->ID, 'crop-landscape') . ');';
     elseif( get_theme_mod( 'content_image', '0' ) != '0' ) :
         //set to default image
-        $featured_image_header_portrait = 'background-image:url(' . get_theme_mod( 'content_image' ) . ');';
-        $featured_image_header_landscape = $featured_image_header_portrait;
+        $featured_image_portrait = 'background-image:url(' . get_theme_mod( 'content_image' ) . ');';
+        $featured_image_landscape = $featured_image_portrait;
     else :
         //set to nothing
-        $featured_image_header_portrait = 'background-image:none;';
-        $featured_image_header_landscape = $featured_image_header_portrait;
+        $featured_image_portrait = 'background-image:none;';
+        $featured_image_landscape = 'background-image:none;';
+    endif;
+
+    //secondary featured image
+    $secondary_image_id = get_post_meta( $post->ID, 'vi-secondary-image-id', true );
+    if( $secondary_image_id > 0 ) :
+        //set to secondary thumbnail
+        $secondary_image_portrait = 'background-image:url(' . wp_get_attachment_image_src($secondary_image_id, 'crop-portrait')[0] . ');';
+        $secondary_image_landscape = 'background-image:url(' . wp_get_attachment_image_src($secondary_image_id, 'crop-landscape')[0] . ');';
+    elseif( get_theme_mod( 'content_image_002', '0' ) != '0' ) :
+        //set to default image
+        $secondary_image_portrait = 'background-image:url(' . get_theme_mod( 'content_image_002' ). ');';
+        $secondary_image_landscape = $secondary_image_portrait;
+    else :
+        //set to the primary image
+        $secondary_image_portrait = 'background-image:none;';
+        $secondary_image_landscape = 'background-image:none;';
     endif;
 
     ?>
     <style type="text/css">
         .featured-image-header {
-            <?php echo($featured_image_header_portrait); ?>
+            <?php echo($featured_image_portrait); ?>
+        }
+        .featured-image-footer {
+            <?php echo($secondary_image_portrait); ?>
         }
         @media only screen and (min-width: 900px) {
         /*900px width and larger*/
             .featured-image-header {
-                <?php echo($featured_image_header_landscape); ?>
+                <?php echo($featured_image_landscape); ?>
+            }
+        	.featured-image-footer {
+                <?php echo($secondary_image_landscape); ?>
             }
         }
     </style>
@@ -607,7 +630,7 @@ function vi_theme_login_head()
 	{
 		if ( 'Username or E-mail:' === $text || 'Username' === $text || 'Username or Email Address' === $text)
 		{
-			$translated_text = __( 'Email Address' , 'version_8' );
+			$translated_text = __( 'Email Address' , 'vi_theme' );
 		}
 		return $translated_text;
 	}
@@ -616,3 +639,130 @@ function vi_theme_login_head()
 }
 add_action( 'login_head', 'vi_theme_login_head' );
 endif;
+
+
+
+
+/*--------------------------------------------------------------
+# Secondary Featured Image
+--------------------------------------------------------------*/
+/**
+ * Adds a meta box to the post editing screen
+ *
+ * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+ * @version 9.0.2003
+ * @since 9.0.2003
+ */
+function vi_theme_featured_image_02_meta()
+{
+    add_meta_box( 'vi_theme_featured_image_02', __( 'Secondary Image', 'vi_theme' ), 'vi_theme_featured_image_02_meta_callback', 'page', 'side' );
+}
+add_action( 'add_meta_boxes', 'vi_theme_featured_image_02_meta' );
+
+/**
+ * Outputs the content of the meta box
+ *
+ * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+ * @version 9.0.2003
+ * @since 9.0.2003
+ */
+function vi_theme_featured_image_02_meta_callback( $post )
+{
+    wp_nonce_field( basename( __FILE__ ), 'vi_theme_nonce' );
+    $vi_theme_stored_meta = get_post_meta( $post->ID );
+
+    $image_button_add_text = 'Add Image';
+    if( isset ( $vi_theme_stored_meta['vi-secondary-image-id'] ) )
+    {
+    	$image_button_add_text = 'Replace Image';
+    }
+
+    $image_id = "";
+    if( isset ( $vi_theme_stored_meta['vi-secondary-image-id'] ) )
+    {
+    	$image_id = $vi_theme_stored_meta['vi-secondary-image-id'][0];
+    }
+
+    //$image_url = vi_var_dump_return( wp_get_attachment_image_src($image_id, 'crop-landscape') );
+
+    $image_url = wp_get_attachment_image_src($image_id, 'crop-landscape')[0];
+    ?>
+
+    <p>
+	    <img id="vi-secondary-image" class="" src="<?php echo( $image_url ); ?>" />
+	    <br>
+	    <input type="text" readonly="" name="vi-secondary-image-id" id="vi-secondary-image-id" value="<?php echo( $image_id ) ?>" />
+	    <br>
+	    <input type="button" id="vi-secondary-image-button" class="button" value="<?php echo( $image_button_add_text ) ?>" />
+	    <br>
+	    <?php if(!empty($image_id) ): ?>
+	    <input type="button" id="vi-secondary-image-button-remove" class="button" value="Remove Image" />
+		<?php endif; ?>
+	</p>
+
+    <?php
+}
+/**
+ * Saves the custom meta input
+ *
+ * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+ * @version 9.0.2003
+ * @since 9.0.2003
+ */
+function vi_theme_featured_image_02_meta_save( $post_id ) {
+
+    // Checks save status
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_nonce = ( isset( $_POST[ 'vi_theme_nonce' ] ) && wp_verify_nonce( $_POST[ 'vi_theme_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+
+    // Exits script depending on save status
+    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+        return $post_id;
+    }
+    // check permissions
+	if ( !current_user_can( 'edit_page', $post_id ) )
+	{
+		return $post_id;
+	}
+	elseif ( !current_user_can( 'edit_post', $post_id ) )
+	{
+		return $post_id;
+	}
+
+    // Checks for input and saves if needed
+	//if( isset( $_POST[ 'vi-secondary-image' ] ) ) {
+	    //update_post_meta( $post_id, 'vi-secondary-image', $_POST[ 'vi-secondary-image' ] );
+	//}
+    // Checks for input and saves if needed
+	if( isset( $_POST[ 'vi-secondary-image-id' ] ) ) {
+	    update_post_meta( $post_id, 'vi-secondary-image-id', $_POST[ 'vi-secondary-image-id' ] );
+	}
+
+}
+add_action( 'save_post', 'vi_theme_featured_image_02_meta_save' );
+
+/**
+ * Loads the image management javascript
+ *
+ * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+ * @version 9.0.2003
+ * @since 9.0.2003
+ */
+function vi_theme_featured_image_02_enqueue() {
+    global $typenow;
+    if( $typenow == 'page' ) {
+        wp_enqueue_media();
+
+        // Registers and enqueues the required javascript.
+        wp_register_script( 'secondary-image', get_template_directory_uri() . '/js/meta_box.js', array( 'jquery' ) );
+        wp_localize_script( 'secondary-image', 'featured_image_02',
+            array(
+                'title' => __( 'Choose or Upload an Image', 'vi_theme' ),
+                'button' => __( 'Use this image', 'vi_theme' ),
+            )
+        );
+        wp_enqueue_script( 'secondary-image' );
+    }
+}
+add_action( 'admin_enqueue_scripts', 'vi_theme_featured_image_02_enqueue' );

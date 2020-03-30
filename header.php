@@ -49,6 +49,7 @@
 	<?php get_template_part( 'sidebar-templates/sidebar', 'urgent-notice-1' ); ?>
 
 	<header id="masthead" class="site-header">
+	<div class="content-container" >
 
 		<?php get_template_part( 'sidebar-templates/sidebar', 'header-1' ); ?>
 
@@ -72,6 +73,7 @@
 		</nav><!-- #site-navigation -->
 
 		<?php get_template_part( 'sidebar-templates/sidebar', 'header-2' ); ?>
+	</div><!-- .content-container -->
 	</header><!-- #masthead -->
 
 	<?php get_template_part( 'sidebar-templates/sidebar', 'urgent-notice-2' ); ?>
@@ -80,3 +82,4 @@
 	</div><!-- .featured-image-header -->
 
 	<div id="content" class="site-content">
+	<div class="content-container" >

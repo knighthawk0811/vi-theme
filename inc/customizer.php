@@ -21,7 +21,8 @@ $vi_theme_default_value = array(
     'footer_bg_color' => 'color_bg_4',
     'footer_text_color' => 'color_text_4',
     'footer_image' => '0',
-    'cache_duration' => '48',
+    'content_container_width' => '900px',
+    'parallax_height' => '20rem',
     'color_bg_1' => '#eeeeee',
     'color_bg_2' => '#dddddd',
     'color_bg_3' => '#cccccc',
@@ -134,36 +135,56 @@ function vi_theme_customize_register( $wp_customize ) {
 
 
 
-/*--------------------------------------------------------------
-# style_custom.css cache duration in hours
---------------------------------------------------------------*/
-	$wp_customize->add_setting('vi_theme_custom_style_duration', array(
-		'capability' => 'edit_theme_options',
-		'default' => $vi_theme_default_value['cache_duration'],
-      	'sanitize_callback' => 'sanitize_text_field',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
-	) );
-	$wp_customize->add_control( 'vi_theme_custom_style_duration_control',
-		array(
-      		'type' => 'text', // Can be either text, email, url, number, hidden, or date
-			'priority' => 10, // Within the section.
-			'label' => __( 'custom style - cache duration' ),
-			'description' => __( 'cache duration in hours [default 48]' ),
-			'section' => 'vi_theme_custom_section_general', // Required, core or custom.
-			'settings' => 'vi_theme_custom_style_duration',
-			'input_attrs' => array(
-		         'placeholder' => __( 'Hours to hold cache' ),
-      		),
-		)
-	);
-
 
 /*--------------------------------------------------------------
-# default featured image, parallax image
+# general
 --------------------------------------------------------------*/
+
+// content width for parallax layout
+$wp_customize->add_setting('content_container_width', array(
+    'capability' => 'edit_theme_options',
+    'default' => $vi_theme_default_value['content_container_width'],
+    'sanitize_callback' => 'sanitize_text_field',
+    'validate_callback' => 'vi_theme_custom_style_changed'
+) );
+$wp_customize->add_control( 'vi_theme_content_container_width_control',
+    array(
+        'type' => 'text', // Can be either text, email, url, number, hidden, or date
+        'priority' => 10, // Within the section.
+        'label' => __( 'Parallax content width' ),
+        'description' => __( 'Max width for content or parallax layout. (Image is still full width)' ),
+        'section' => 'vi_theme_custom_section_general', // Required, core or custom.
+        'settings' => 'content_container_width',
+        'input_attrs' => array(
+             'placeholder' => __( 'Width (define your own units)' ),
+        ),
+    )
+);
+// image height for parallax layout
+$wp_customize->add_setting('parallax_height', array(
+    'capability' => 'edit_theme_options',
+    'default' => $vi_theme_default_value['content_container_width'],
+    'sanitize_callback' => 'sanitize_text_field',
+    'validate_callback' => 'vi_theme_custom_style_changed'
+) );
+$wp_customize->add_control( 'vi_theme_parallax_height_control',
+    array(
+        'type' => 'text', // Can be either text, email, url, number, hidden, or date
+        'priority' => 10, // Within the section.
+        'label' => __( 'Parallax Image Height' ),
+        'description' => __( 'Height of the Parallax Image (define your own units)' ),
+        'section' => 'vi_theme_custom_section_general', // Required, core or custom.
+        'settings' => 'parallax_height',
+        'input_attrs' => array(
+             'placeholder' => __( 'Height (define your own units)' ),
+        ),
+    )
+);
+
+
 $wp_customize->add_setting( 'content_image', array(
     //default
-    'validate_callback' => 'vi_custom_style_update_last_changed'
+    'validate_callback' => 'vi_theme_custom_style_changed'
 ) );
 $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_control',
    array(
@@ -171,6 +192,19 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
       'description' => esc_html__( 'Select an image to use as the default for pages with no featured image.' ),
       'section' => 'vi_theme_custom_section_general', // Required, core or custom.
       'settings' => 'content_image'
+   )
+) );
+
+$wp_customize->add_setting( 'content_image_002', array(
+    //default
+    'validate_callback' => 'vi_theme_custom_style_changed'
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_002_control',
+   array(
+      'label' => __( 'Default Secondary Image' ),
+      'description' => esc_html__( 'Select an image to use as the default/secondary for pages with no featured image.' ),
+      'section' => 'vi_theme_custom_section_general', // Required, core or custom.
+      'settings' => 'content_image_002'
    )
 ) );
 
@@ -184,7 +218,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
 		'capability' => 'edit_theme_options',
 		'default' => $vi_theme_default_value['color_bg_1'],
 		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
 	) );
 	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_bg_1_control',
 		array(
@@ -200,7 +234,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
 		'capability' => 'edit_theme_options',
 		'default' => $vi_theme_default_value['color_bg_2'],
 		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
 	) );
 	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_bg_2_control',
 		array(
@@ -216,7 +250,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
 		'capability' => 'edit_theme_options',
 		'default' => $vi_theme_default_value['color_bg_3'],
 		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
 	) );
 	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_bg_3_control',
 		array(
@@ -232,7 +266,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
 		'capability' => 'edit_theme_options',
 		'default' => $vi_theme_default_value['color_bg_4'],
 		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
 	) );
 	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_bg_4_control',
 		array(
@@ -250,7 +284,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
 		'capability' => 'edit_theme_options',
 		'default' => $vi_theme_default_value['color_text_1'],
 		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
 	) );
 	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_text_1_control',
 		array(
@@ -266,7 +300,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
 		'capability' => 'edit_theme_options',
 		'default' => $vi_theme_default_value['color_text_2'],
 		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
 	) );
 	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_text_2_control',
 		array(
@@ -282,7 +316,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
 		'capability' => 'edit_theme_options',
 		'default' => $vi_theme_default_value['color_text_3'],
 		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
 	) );
 	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_text_3_control',
 		array(
@@ -298,7 +332,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
 		'capability' => 'edit_theme_options',
 		'default' => $vi_theme_default_value['color_text_4'],
 		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
 	) );
 	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_text_4_control',
 		array(
@@ -319,7 +353,7 @@ $wp_customize->add_setting( 'body_bg_color',
         'default' => 'color_bg_w',
         'transport' => 'refresh',
         'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
     )
 );
 $wp_customize->add_control( 'body_bg_color',
@@ -347,7 +381,7 @@ $wp_customize->add_setting( 'body_text_color',
         'default' => 'color_text_b',
         'transport' => 'refresh',
         'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
     )
 );
 $wp_customize->add_control( 'body_text_color',
@@ -379,7 +413,7 @@ $wp_customize->add_setting( 'modal_bg_color',
         'default' => 'color_bg_4',
         'transport' => 'refresh',
         'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
     )
 );
 $wp_customize->add_control( 'modal_bg_color',
@@ -406,7 +440,7 @@ $wp_customize->add_control( 'modal_bg_color',
 $wp_customize->add_setting('modal_background_trans', array(
     'capability' => 'edit_theme_options',
     'default' => $vi_theme_theme_default_value['modal_background_trans'],
-    'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+    'validate_callback' => 'vi_theme_custom_style_changed'
 ) );
 $wp_customize->add_control( 'modal_background_trans_control',
     array(
@@ -428,7 +462,7 @@ $wp_customize->add_setting( 'modal_text_color',
         'default' => 'color_text_b',
         'transport' => 'refresh',
         'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
     )
 );
 $wp_customize->add_control( 'modal_text_color',
@@ -459,7 +493,7 @@ array(
     'default' => 'color_bg_3',
     'transport' => 'refresh',
     'sanitize_callback' => 'vi_theme_sanitize_radio',
-    'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+    'validate_callback' => 'vi_theme_custom_style_changed'
 )
 );
 $wp_customize->add_control( 'header_bg_color',
@@ -485,7 +519,7 @@ $wp_customize->add_control( 'header_bg_color',
 //header image
 $wp_customize->add_setting( 'header_bg_image', array(
     //default
-    'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+    'validate_callback' => 'vi_theme_custom_style_changed'
 ) );
 $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'header_bg_image_control',
    array(
@@ -501,7 +535,7 @@ $wp_customize->add_setting( 'header_text_color',
         'default' => 'color_text_b',
         'transport' => 'refresh',
         'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
     )
 );
 $wp_customize->add_control( 'header_text_color',
@@ -533,7 +567,7 @@ $wp_customize->add_setting( 'content_bg_color',
         'default' => 'color_bg_1',
         'transport' => 'refresh',
         'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
     )
 );
 $wp_customize->add_control( 'content_bg_color',
@@ -559,7 +593,7 @@ $wp_customize->add_control( 'content_bg_color',
 //content image
 $wp_customize->add_setting( 'content_bg_image', array(
     //default
-    'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+    'validate_callback' => 'vi_theme_custom_style_changed'
 ) );
 $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_bg_image_control',
    array(
@@ -575,7 +609,7 @@ $wp_customize->add_setting( 'content_text_color',
         'default' => 'color_text_b',
         'transport' => 'refresh',
         'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
     )
 );
 $wp_customize->add_control( 'content_text_color',
@@ -607,7 +641,7 @@ $wp_customize->add_setting( 'footer_bg_color',
         'default' => 'color_bg_2',
         'transport' => 'refresh',
         'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
     )
 );
 $wp_customize->add_control( 'footer_bg_color',
@@ -633,7 +667,7 @@ $wp_customize->add_control( 'footer_bg_color',
 //footer image
 $wp_customize->add_setting( 'footer_bg_image', array(
     //default
-    'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+    'validate_callback' => 'vi_theme_custom_style_changed'
 ) );
 $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'footer_bg_image_control',
    array(
@@ -649,7 +683,7 @@ $wp_customize->add_setting( 'footer_text_color',
         'default' => 'color_text_b',
         'transport' => 'refresh',
         'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
     )
 );
 $wp_customize->add_control( 'footer_text_color',
@@ -680,7 +714,7 @@ $wp_customize->add_control( 'footer_text_color',
 		'capability' => 'edit_theme_options',
 		'default' => vi_theme_get_customizer_value('header_bg_color'),
       	'sanitize_callback' => 'sanitize_text_field',
-        'validate_callback' => 'vi_theme_custom_style_update_last_changed'
+        'validate_callback' => 'vi_theme_custom_style_changed'
 	) );
 	$wp_customize->add_control( 'vi_theme_test_value_control',
 		array(
@@ -812,11 +846,11 @@ endif;
  * @version 8.3.2003
  * @since 8.3.1909
  */
-if ( ! function_exists( 'vi_theme_custom_style_update_last_changed' ) ) :
-function vi_theme_custom_style_update_last_changed( $validity, $value )
+if ( ! function_exists( 'vi_theme_custom_style_changed' ) ) :
+function vi_theme_custom_style_changed( $validity, $value )
 {
-    $today = intval(date('YmdHi'));
-    set_theme_mod('vi_theme_custom_style_changed', $today);
+    $today = intval(date('YmdHis'));
+    set_theme_mod('custom_style_changed', $today);
 
     return $validity;
 }
@@ -835,15 +869,15 @@ endif;
 if ( ! function_exists( 'vi_theme_customize_css' ) ) :
 function vi_theme_customize_css()
 {
-	$today = intval(date('YmdHi'));
-	$last_change = intval( get_theme_mod( 'vi_theme_custom_style_changed', $today ) );
-    $last_update = intval( get_theme_mod( 'vi_theme_custom_style_updated', $today ) );
+	$today = intval(date('YmdHis'));
+	$last_change = intval( get_theme_mod( 'custom_style_changed', $today ) );
+    $last_update = intval( get_theme_mod( 'custom_style_updated', $today ) );
 
 	//if the file doesn't exist, then force it to be reset
 	if( !file_exists( get_stylesheet_directory() . '/style_customize_' . get_current_blog_id() . '.css' ) )
 	{
-	    set_theme_mod('vi_theme_custom_style_changed', $today);
-        set_theme_mod('vi_theme_custom_style_updated', $today - 1);
+	    set_theme_mod('custom_style_changed', $today);
+        set_theme_mod('custom_style_updated', $today - 1);
 	}
 
     //if the last change is more recent than the last time this was updated
@@ -854,7 +888,7 @@ function vi_theme_customize_css()
         //write it to the file
 	    file_put_contents ( get_stylesheet_directory() . '/style_customize_' . get_current_blog_id() . '.css' , $content );
         //update the time
-        set_theme_mod( 'vi_theme_custom_style_updated', $today );
+        set_theme_mod( 'custom_style_updated', $today );
 
 	}
 }
@@ -901,6 +935,14 @@ function vi_theme_customize_css_default()
                 color: <?php echo vi_theme_get_customizer_value('body_text_color'); ?>;
 
                 background-color: <?php echo vi_theme_get_customizer_value('body_bg_color'); ?>;
+            }
+
+            .content-container {
+                max-width: <?php echo vi_theme_get_customizer_value('content_container_width'); ?>;
+            }
+            body.page-template-parallax-simplepage .featured-image-header,
+            body.page-template-parallax-simplepage .featured-image-footer {
+                min-height: <?php echo vi_theme_get_customizer_value('parallax_height'); ?>;
             }
 
 
