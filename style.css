@@ -834,7 +834,7 @@ a:hover, a:active {
 # Widgets
 --------------------------------------------------------------*/
 .widget {
-	margin: 0 0 1.5em;
+	/* margin: 0 0 1.5em; */
 	/* Make sure select elements fit in widgets. */
 }
 
@@ -1048,6 +1048,11 @@ body.post,
 body.page {
     margin:0;
 }
+#page {
+	height:auto;
+
+	overflow:auto;
+}
 .content-container {
 	margin:0 auto;
 	max-width:900px;
@@ -1202,6 +1207,13 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 
 	background-size: cover;
 	background-position: center center;
+}
+
+#sidebar-urgent-notice-1,
+#sidebar-urgent-notice-2 {
+	height:auto;
+
+	overflow:auto;
 }
 /*--------------------------------------------------------------
 # Content Area

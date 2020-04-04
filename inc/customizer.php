@@ -151,8 +151,8 @@ $wp_customize->add_control( 'vi_theme_content_container_width_control',
     array(
         'type' => 'text', // Can be either text, email, url, number, hidden, or date
         'priority' => 10, // Within the section.
-        'label' => __( 'Parallax content width' ),
-        'description' => __( 'Max width for content or parallax layout. (Image is still full width)' ),
+        'label' => __( 'Content Width' ),
+        'description' => __( 'Max width for content. (Background & Parallax Image is still full width)' ),
         'section' => 'vi_theme_custom_section_general', // Required, core or custom.
         'settings' => 'content_container_width',
         'input_attrs' => array(
@@ -171,8 +171,8 @@ $wp_customize->add_control( 'vi_theme_parallax_height_control',
     array(
         'type' => 'text', // Can be either text, email, url, number, hidden, or date
         'priority' => 10, // Within the section.
-        'label' => __( 'Parallax Image Height' ),
-        'description' => __( 'Height of the Parallax Image (define your own units)' ),
+        'label' => __( 'Simple Parallax Image Height' ),
+        'description' => __( 'Height of the Simple Parallax Image (define your own units)' ),
         'section' => 'vi_theme_custom_section_general', // Required, core or custom.
         'settings' => 'parallax_height',
         'input_attrs' => array(
