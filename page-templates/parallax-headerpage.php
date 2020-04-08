@@ -1,6 +1,7 @@
 <?php
 /**
- * Template Name: Right Sidebar
+ *
+ * Template Name: Parallax Header
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -8,7 +9,7 @@
  */
 
 //add class to body
-vi_theme_body_add_class( 'sidebar-2' );
+vi_theme_body_add_class( 'parallax-header' );
 get_header();
 ?>
 	<div id="primary" class="content-area">
@@ -29,7 +30,6 @@ get_header();
 		?>
 
 		</main><!-- #main -->
-		<?php get_template_part( 'sidebar-templates/sidebar', 'right' ); ?>
 	</div><!-- #primary -->
 
 <?php

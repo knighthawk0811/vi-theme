@@ -5,11 +5,11 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package version_8
+ * @package vi_theme
  */
 
 //add class to body
-vi_theme_body_classes( 'sidebar-none' );
+vi_theme_body_add_class( 'sidebar-none' );
 get_header();
 ?>
 	<div id="primary" class="content-area">

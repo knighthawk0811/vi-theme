@@ -4,11 +4,11 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package version_8_child
+ * @package vi_theme
  */
 
 //add class to body
-vi_theme_body_classes( 'sidebar-1' );
+vi_theme_body_add_class( 'sidebar-1' );
 get_header();
 ?>
 	<div id="primary" class="content-area">

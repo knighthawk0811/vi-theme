@@ -50,27 +50,7 @@
 
 	<header id="masthead" class="site-header">
 	<div class="content-container" >
-
 		<?php get_template_part( 'sidebar-templates/sidebar', 'header-1' ); ?>
-
-		<nav id="site-navigation" class="main-navigation">
-			<?php
-				if ( has_nav_menu( 'header-1' ) ) {
-					echo('<div id="nav-header-1">');
-					wp_nav_menu( array(
-						'theme_location' => 'header-1',
-					) );
-					echo('</div>');
-				}
-				if ( has_nav_menu( 'header-2' ) ) {
-					echo('<div id="nav-header-2">');
-					wp_nav_menu( array(
-						'theme_location' => 'header-2',
-					) );
-					echo('</div>');
-				}
-			?>
-		</nav><!-- #site-navigation -->
 
 		<?php get_template_part( 'sidebar-templates/sidebar', 'header-2' ); ?>
 	</div><!-- .content-container -->

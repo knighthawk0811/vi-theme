@@ -1199,6 +1199,14 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 /*--------------------------------------------------------------
 # Navigation
 --------------------------------------------------------------*/
+.primary-navigation .navbar-brand,
+.primary-navigation #bs-navbar-collapse-1 {
+	float:left;
+}
+.primary-navigation .navbar-brand img {
+	height:3em;
+	width:auto;
+}
 /*--------------------------------------------------------------
 # Header Area
 --------------------------------------------------------------*/
@@ -1218,6 +1226,9 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 /*--------------------------------------------------------------
 # Content Area
 --------------------------------------------------------------*/
+article .entry-header {
+	display:none;
+}
 .post-thumbnail {
 	margin: 0 auto;
 	max-width: 50%;
@@ -1269,9 +1280,9 @@ body > .modal-backdrop {
 /*--------------------------------------------------------------
 # Templates
 --------------------------------------------------------------*/
-/* parallax-simple */
-body.page-template-parallax-simplepage .featured-image-header,
-body.page-template-parallax-simplepage .featured-image-footer {
+/* parallax-header */
+body.parallax-header .featured-image-header,
+body.parallax-header .featured-image-footer {
 	min-height: 20em;
 
 	background-attachment: fixed;
@@ -1281,7 +1292,36 @@ body.page-template-parallax-simplepage .featured-image-footer {
 	background-size: cover;
 	box-shadow: inset 0px 5px 5px -5px #000000, inset 0px -5px 5px -5px #000000;
 }
-body.page-template-parallax-simplepage .post-thumbnail {
+body.parallax-header .featured-image-header {
+    height:100vh;
+    margin-bottom:-80vh;
+}
+body.parallax-header .featured-image-footer {
+	display:none;
+}
+body.parallax-header .post-thumbnail {
+	display:none;
+}
+body.parallax-header #content {
+	background-color:rgba(0,0,0,0);
+}
+body.parallax-header #content .content-container {
+	background-color:rgba(0,0,0,0);
+}
+
+/* parallax-simple */
+body.parallax-simple .featured-image-header,
+body.parallax-simple .featured-image-footer {
+	min-height: 20em;
+
+	background-attachment: fixed;
+	background-color: rgba(0,0,0,0);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	box-shadow: inset 0px 5px 5px -5px #000000, inset 0px -5px 5px -5px #000000;
+}
+body.parallax-simple .post-thumbnail {
 	display:none;
 }
 /*--------------------------------------------------------------

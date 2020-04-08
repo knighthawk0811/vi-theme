@@ -145,8 +145,8 @@ if ( ! function_exists( 'vi_theme_setup' ) ) :
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
 			'modal' => __( 'Modal', 'vi_theme' ),
-			'header-1' => __( 'Header-1', 'vi_theme' ),
-			'header-2' => __( 'Header-2', 'vi_theme' ),
+			'header-1' => __( 'Header-1 [Appears after the Header-1 widgets. Displays in Bootstrap.]', 'vi_theme' ),
+			'header-2' => __( 'Header-2 [Appears before the Header-2 widgets. Displays as WP menu.]', 'vi_theme' ),
 			'footer-1' => __( 'Footer-1', 'vi_theme' ),
 			'footer-2' => __( 'Footer-2', 'vi_theme' ),
 		) );
@@ -533,6 +533,15 @@ require get_template_directory() . '/inc/security.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+/**
+ * Load Bootstrap Nav-walker file.
+ */
+function vi_register_navwalker()
+{
+	require_once get_template_directory() . '/inc/class-wp-bootstrap-navwalker.php';
+}
+add_action( 'after_setup_theme', 'vi_register_navwalker' );
 
 
 

@@ -17,6 +17,7 @@ $vi_theme_default_value = array(
     'header_image' => '0',
     'content_bg_color' => 'color_bg_3',
     'content_text_color' => 'color_text_3',
+    'site_logo' => '0',
     'content_image' => '0',
     'footer_bg_color' => 'color_bg_4',
     'footer_text_color' => 'color_text_4',
@@ -139,6 +140,20 @@ function vi_theme_customize_register( $wp_customize ) {
 /*--------------------------------------------------------------
 # general
 --------------------------------------------------------------*/
+
+
+$wp_customize->add_setting( 'site_logo', array(
+    //default
+    'validate_callback' => 'vi_theme_custom_style_changed'
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'site_logo_control',
+   array(
+      'label' => __( 'Site Logo' ),
+      'description' => esc_html__( 'Select an image to use as the Logo in the header of your site.' ),
+      'section' => 'vi_theme_custom_section_general', // Required, core or custom.
+      'settings' => 'site_logo'
+   )
+) );
 
 // content width for parallax layout
 $wp_customize->add_setting('content_container_width', array(
@@ -940,8 +955,8 @@ function vi_theme_customize_css_default()
             .content-container {
                 max-width: <?php echo vi_theme_get_customizer_value('content_container_width'); ?>;
             }
-            body.page-template-parallax-simplepage .featured-image-header,
-            body.page-template-parallax-simplepage .featured-image-footer {
+            body.parallax-simple .featured-image-header,
+            body.parallax-simple .featured-image-footer {
                 min-height: <?php echo vi_theme_get_customizer_value('parallax_height'); ?>;
             }
 
@@ -963,6 +978,12 @@ function vi_theme_customize_css_default()
             }
 
             #content {
+                color: <?php echo vi_theme_get_customizer_value('content_text_color'); ?>;
+
+                background-color: <?php echo vi_theme_get_customizer_value('content_bg_color'); ?>;
+                <?php echo( $content_bg_img . ';' ); ?>
+            }
+            #content .content-container {
                 color: <?php echo vi_theme_get_customizer_value('content_text_color'); ?>;
 
                 background-color: <?php echo vi_theme_get_customizer_value('content_bg_color'); ?>;
