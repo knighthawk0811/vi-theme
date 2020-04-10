@@ -1181,8 +1181,6 @@ body.modal-main-toggle-on #modal-main-shade{
     font-size:2rem;
     line-height:2;
     text-shadow:none;
-
-    background: #dddddd;
 }
 #modal-button .toggle-closed {
     display:inherit;
@@ -1304,6 +1302,10 @@ body.parallax-header .post-thumbnail {
 }
 body.parallax-header #content {
 	background-color:rgba(0,0,0,0);
+}
+body.parallax-header #content > .content-container {
+	min-width:100%;
+	width:100%;
 }
 body.parallax-header #content .content-container {
 	background-color:rgba(0,0,0,0);

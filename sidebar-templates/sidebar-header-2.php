@@ -11,19 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div id="sidebar-header-2">
-
-    <nav class="main-navigation">
-        <div id="nav-header-2">
-        <?php
-        if ( has_nav_menu( 'header-2' ) ) {
-            wp_nav_menu( array(
-                'theme_location' => 'header-2',
-            ) );
-        }
-        ?>
-        </div>
-    </nav><!-- .main-navigation -->
-
 <?php
     if ( is_active_sidebar( 'sidebar-header-2' ) ) {
         dynamic_sidebar( 'sidebar-header-2' );

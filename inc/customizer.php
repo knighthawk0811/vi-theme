@@ -10,6 +10,7 @@ $vi_theme_default_value = array(
     'body_bg_color' => 'color_bg_w',
     'body_text_color' => 'color_text_b',
     'modal_bg_color' => 'color_bg_1',
+    'modal_button_color' => 'color_bg_1',
     'modal_text_color' => 'color_text_1',
     'modal_background_trans' => '75',
     'header_bg_color' => 'color_bg_2',
@@ -434,6 +435,34 @@ $wp_customize->add_setting( 'modal_bg_color',
 $wp_customize->add_control( 'modal_bg_color',
    array(
       'label' => __( 'Modal Background Color' ),
+      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
+      'section' => 'vi_theme_custom_section_modal',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'color_bg_1' => __( 'Color 1' ),
+         'color_bg_2' => __( 'Color 2' ),
+         'color_bg_3' => __( 'Color 3' ),
+         'color_bg_4' => __( 'Color 4' ),
+         'color_bg_b' => __( 'Color Black' ),
+         'color_bg_w' => __( 'Color White' ),
+         'color_bg_c' => __( 'Color Clear' )
+      )
+   )
+);
+
+$wp_customize->add_setting( 'modal_button_color',
+    array(
+        'default' => 'color_bg_4',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'modal_button_color',
+   array(
+      'label' => __( 'Modal Button Color' ),
       'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
       'section' => 'vi_theme_custom_section_modal',
       'priority' => 10, // Optional. Order priority to load the control. Default: 10
@@ -961,6 +990,9 @@ function vi_theme_customize_css_default()
             }
 
 
+            #modal-button {
+                background-color: <?php echo vi_theme_get_customizer_value('modal_button_color'); ?>;
+            }
             #modal-main-container {
                 color: <?php echo vi_theme_get_customizer_value('modal_text_color'); ?>;
             }
