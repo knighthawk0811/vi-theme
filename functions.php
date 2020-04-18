@@ -69,6 +69,26 @@ function vi_var_dump_pre($mixed = NULL, $label = NULL)
 }
 endif;
 /**
+ * var_dump return as a pre html element
+ *
+ * @link
+ * @version 8.3.1906
+ * @since 8.3.1906
+ */
+if ( ! function_exists( 'vi_var_dump_return_pre' ) ) :
+function vi_var_dump_return_pre($mixed = NULL, $label = NULL)
+{
+	ob_start();
+	if(is_string($label)){$label .= ': ';}else{$label = '';}
+	echo '<pre>' . $label . "\n";
+	var_dump($mixed);
+	echo '</pre>';
+	$content = ob_get_contents();
+	ob_end_clean();
+	return $content;
+}
+endif;
+/**
 * var_dump returned as a string
 *
 * @link
@@ -725,6 +745,7 @@ function vi_theme_featured_image_02_meta_save( $post_id ) {
     // Checks save status
     $is_autosave = wp_is_post_autosave( $post_id );
     $is_revision = wp_is_post_revision( $post_id );
+    //$is_valid_nonce = check_admin_referer( basename( __FILE__ ), 'vi_theme_nonce');
     $is_valid_nonce = ( isset( $_POST[ 'vi_theme_nonce' ] ) && wp_verify_nonce( $_POST[ 'vi_theme_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
 
     // Exits script depending on save status

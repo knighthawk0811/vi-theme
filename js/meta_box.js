@@ -4,6 +4,7 @@
  * Adds functionality to the custom post meta box
  *
  * used for the secondary featured images
+ * @link https://themefoundation.com/wordpress-meta-boxes-guide/
  */
 
 /*
