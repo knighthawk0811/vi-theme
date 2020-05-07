@@ -156,6 +156,29 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'site
    )
 ) );
 
+$wp_customize->add_setting( 'site_logo_navigation',
+    array(
+        'default' => 'true',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'site_logo_navigation',
+   array(
+      'label' => __( 'Logo In Navigation?' ),
+      'description' => esc_html__( 'Will the logo appear in the Bootstrap Navigation bar?' ),
+      'section' => 'vi_theme_custom_section_general',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'true' => __( 'Yes' ),
+         'false' => __( 'No' )
+      )
+   )
+);
+
 // content width for parallax layout
 $wp_customize->add_setting('content_container_width', array(
     'capability' => 'edit_theme_options',
@@ -602,6 +625,119 @@ $wp_customize->add_control( 'header_text_color',
    )
 );
 
+$wp_customize->add_setting( 'header_bs_nav_bg_color',
+array(
+    'default' => 'color_bg_3',
+    'transport' => 'refresh',
+    'sanitize_callback' => 'vi_theme_sanitize_radio',
+    'validate_callback' => 'vi_theme_custom_style_changed'
+)
+);
+$wp_customize->add_control( 'header_bs_nav_bg_color',
+   array(
+      'label' => __( 'Header BS Navigation Background Color' ),
+      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
+      'section' => 'vi_theme_custom_section_header',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'color_bg_1' => __( 'Color 1' ),
+         'color_bg_2' => __( 'Color 2' ),
+         'color_bg_3' => __( 'Color 3' ),
+         'color_bg_4' => __( 'Color 4' ),
+         'color_bg_b' => __( 'Color Black' ),
+         'color_bg_w' => __( 'Color White' ),
+         'color_bg_c' => __( 'Color Clear' )
+      )
+   )
+);
+
+$wp_customize->add_setting( 'header_bs_nav_text_color',
+    array(
+        'default' => 'color_text_b',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'header_bs_nav_text_color',
+   array(
+      'label' => __( 'Header BS Navigation Text Color' ),
+      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
+      'section' => 'vi_theme_custom_section_header',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'color_text_1' => __( 'Color 1' ),
+         'color_text_2' => __( 'Color 2' ),
+         'color_text_3' => __( 'Color 3' ),
+         'color_text_4' => __( 'Color 4' ),
+         'color_text_b' => __( 'Color Black' ),
+         'color_text_w' => __( 'Color White' ),
+         'color_text_c' => __( 'Color Clear' )
+      )
+   )
+);
+
+
+$wp_customize->add_setting( 'header_wp_nav_bg_color',
+array(
+    'default' => 'color_bg_3',
+    'transport' => 'refresh',
+    'sanitize_callback' => 'vi_theme_sanitize_radio',
+    'validate_callback' => 'vi_theme_custom_style_changed'
+)
+);
+$wp_customize->add_control( 'header_wp_nav_bg_color',
+   array(
+      'label' => __( 'Header WP Navigation Background Color' ),
+      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
+      'section' => 'vi_theme_custom_section_header',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'color_bg_1' => __( 'Color 1' ),
+         'color_bg_2' => __( 'Color 2' ),
+         'color_bg_3' => __( 'Color 3' ),
+         'color_bg_4' => __( 'Color 4' ),
+         'color_bg_b' => __( 'Color Black' ),
+         'color_bg_w' => __( 'Color White' ),
+         'color_bg_c' => __( 'Color Clear' )
+      )
+   )
+);
+
+$wp_customize->add_setting( 'header_wp_nav_text_color',
+    array(
+        'default' => 'color_text_b',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'header_wp_nav_text_color',
+   array(
+      'label' => __( 'Header WP Navigation Text Color' ),
+      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
+      'section' => 'vi_theme_custom_section_header',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'color_text_1' => __( 'Color 1' ),
+         'color_text_2' => __( 'Color 2' ),
+         'color_text_3' => __( 'Color 3' ),
+         'color_text_4' => __( 'Color 4' ),
+         'color_text_b' => __( 'Color Black' ),
+         'color_text_w' => __( 'Color White' ),
+         'color_text_c' => __( 'Color Clear' )
+      )
+   )
+);
+
 
 /*--------------------------------------------------------------
 # Content
@@ -1009,13 +1145,18 @@ function vi_theme_customize_css_default()
                 <?php echo( $masthead_bg_img . ';' ); ?>
             }
 
-            #content {
-                color: <?php echo vi_theme_get_customizer_value('content_text_color'); ?>;
+            #masthead .primary-navigation {
+                color: <?php echo vi_theme_get_customizer_value('header_bs_nav_text_color'); ?>;
 
-                background-color: <?php echo vi_theme_get_customizer_value('content_bg_color'); ?>;
-                <?php echo( $content_bg_img . ';' ); ?>
+                background-color: <?php echo vi_theme_get_customizer_value('header_bs_nav_bg_color'); ?>;
             }
-            #content .content-container {
+            #masthead .main-navigation {
+                color: <?php echo vi_theme_get_customizer_value('header_wp_nav_text_color'); ?>;
+
+                background-color: <?php echo vi_theme_get_customizer_value('header_wp_nav_bg_color'); ?>;
+            }
+
+            #content {
                 color: <?php echo vi_theme_get_customizer_value('content_text_color'); ?>;
 
                 background-color: <?php echo vi_theme_get_customizer_value('content_bg_color'); ?>;
