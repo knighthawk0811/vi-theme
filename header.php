@@ -51,16 +51,18 @@
 	<header id="masthead" class="site-header">
 	<div class="content-container" >
 		<?php get_template_part( 'sidebar-templates/sidebar', 'header-1' ); ?>
-		    <nav  class="primary-navigation navbar navbar-expand-md navbar-light bg-light" role="navigation">
+
+		    <?php if ( has_nav_menu( 'header-1' ) ): ?>
+		    	<nav  class="primary-navigation navbar navbar-expand-md" role="navigation">
 		        <div id="nav-header-1">
 		        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar-collapse-1" aria-controls="bs-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
 		            <span class="navbar-toggler-icon"></span>
 		        </button>
-		        <?php if( get_theme_mod( 'site_logo', '0' ) != '0' ): ?>
+		        <?php if( get_theme_mod( 'site_logo_navigation', 'true' ) != 'false' && get_theme_mod( 'site_logo', '0' ) != '0' ): ?>
 		        <a class="navbar-brand" href="<?php echo get_bloginfo('url'); ?>"><img src="<?php echo get_theme_mod( 'site_logo', '0' ); ?>" / alt="<?php echo get_bloginfo('name'); ?>"></a>
 		        <?php endif; ?>
+
 		        <?php
-		        if ( has_nav_menu( 'header-1' ) ) {
 		            wp_nav_menu( array(
 		                'theme_location' => 'header-1',
 		                'depth'           => 2, // 1 = no dropdowns, 2 = with dropdowns.
@@ -71,21 +73,24 @@
 		                'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
 		                'walker'          => new WP_Bootstrap_Navwalker(),
 		            ) );
-		        }
 		        ?>
+
 		        </div>
-		    </nav><!-- .primary-navigation -->
-		    <nav class="main-navigation">
+		    	</nav><!-- .primary-navigation -->
+		    <?php endif; ?>
+
+		    <?php if ( has_nav_menu( 'header-2' ) ): ?>
+		    	<nav class="main-navigation">
 		        <div id="nav-header-2">
 		        <?php
-		        if ( has_nav_menu( 'header-2' ) ) {
 		            wp_nav_menu( array(
 		                'theme_location' => 'header-2',
 		            ) );
-		        }
 		        ?>
 		        </div>
-		    </nav><!-- .main-navigation -->
+		    	</nav><!-- .main-navigation -->
+		    <?php endif; ?>
+
 		<?php get_template_part( 'sidebar-templates/sidebar', 'header-2' ); ?>
 	</div><!-- .content-container -->
 	</header><!-- #masthead -->
