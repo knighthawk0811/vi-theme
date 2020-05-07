@@ -447,7 +447,7 @@ endif;
 if ( ! function_exists( 'version_8_scripts_admin_section' ) ) :
 	function version_8_scripts_admin_section() {
 		//enqueue style sheet
-		wp_register_style( 'version_8-style-admin', get_stylesheet_directory_uri() . '/style-admin.css', NULL , NULL , 'all' );
+		wp_register_style( 'version_8-style-admin', get_template_directory_uri() . '/style-admin.css', NULL , NULL , 'all' );
 		wp_enqueue_style( 'version_8-style-admin' );
 
 	}
