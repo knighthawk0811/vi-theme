@@ -1,7 +1,6 @@
 <?php
 /**
- *
- * Template Name: None Sidebars
+ * Template Name: Sidebar - Left
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -9,10 +8,11 @@
  */
 
 //add class to body
-vi_theme_body_add_class( 'sidebar-none' );
+vi_theme_body_add_class( 'sidebar-1' );
 get_header();
 ?>
 	<div id="primary" class="content-area">
+	<?php get_template_part( 'sidebar-templates/sidebar', 'left' ); ?>
 		<main id="main" class="site-main">
 
 		<?php
