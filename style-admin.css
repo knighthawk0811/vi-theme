@@ -41,3 +41,10 @@ ul.wp-block-gallery{
 .wp-block-html .block-editor-plain-text {
     max-height: unset;
 }
+
+/* make block group a little more visible */
+.block-editor__container .wp-block[data-type*="group"]
+{
+    padding-bottom:2rem;
+    padding-top:2rem;
+}

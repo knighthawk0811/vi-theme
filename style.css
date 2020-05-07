@@ -414,7 +414,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-	margin-bottom: 1.5em;
+	/*margin-bottom: 1.5em;*/
+	margin-bottom:1.5rem;
 }
 
 dfn, cite, em, i {
@@ -643,12 +644,14 @@ a:hover, a:active {
 /*--------------------------------------------------------------
 ## Menus
 --------------------------------------------------------------*/
+/*
 .main-navigation {
 	clear: both;
 	display: block;
 	float: left;
 	width: 100%;
 }
+*/
 
 .main-navigation ul {
 	display: none;
@@ -854,7 +857,7 @@ a:hover, a:active {
 
 .post,
 .page {
-	margin: 0 0 1.5em;
+	/* margin: 0 0 1.5em; */
 }
 
 .updated:not(.published) {
@@ -1232,7 +1235,7 @@ article .entry-header {
 	max-width: 50%;
 
 	border: 1px solid #fff;
-	border-radius: 1em;
+	border-radius: 3px;
 	box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.5);
 
 	overflow: hidden;
@@ -1243,6 +1246,81 @@ article .entry-header {
 /*--------------------------------------------------------------
 # Reusable Classes
 --------------------------------------------------------------*/
+.min-vh-100 {
+    min-height: 100vh !important;
+}
+.min-vh-90 {
+    min-height: 90vh !important;
+}
+.min-vh-80 {
+    min-height: 80vh !important;
+}
+.min-vh-75 {
+    min-height: 75vh !important;
+}
+.min-vh-70 {
+    min-height: 70vh !important;
+}
+.min-vh-66 {
+    min-height: 66.6vh !important;
+}
+.min-vh-60 {
+    min-height: 60vh !important;
+}
+.min-vh-50 {
+    min-height: 50vh !important;
+}
+.min-vh-40 {
+    min-height: 40vh !important;
+}
+.min-vh-33 {
+    min-height: 33.3vh !important;
+}
+.min-vh-30 {
+    min-height: 30vh !important;
+}
+.min-vh-25 {
+    min-height: 25vh !important;
+}
+.min-vh-20 {
+    min-height: 20vh !important;
+}
+.min-vh-10 {
+    min-height: 10vh !important;
+}
+
+
+
+/* forced aspect ratios */
+.aspect-ratio {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+.aspect-ratio .dummy,
+.aspect-ratio.ar-1-1 .dummy {
+	/*default aspect ratio */
+    margin-bottom: 100%; /* 1:1; aspect ratio */
+}
+.aspect-ratio.ar-4-3 .dummy {
+    margin-bottom: 75%; /* 4:3 aspect ratio */
+}
+.aspect-ratio.ar-16-9 .dummy {
+    margin-bottom: 56.25%%; /* 16:9; aspect ratio */
+}
+.aspect-ratio.ar-3-4 .dummy {
+    margin-bottom: 125%; /* 3:4; aspect ratio */
+}
+.aspect-ratio.ar-9-16 .dummy {
+    margin-bottom: 177.7%; /* 9:16; aspect ratio */
+}
+.aspect-ratio .element {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 /*--------------------------------------------------------------
 # Mobile/Desktop Classes
 --------------------------------------------------------------*/
@@ -1252,22 +1330,17 @@ article .entry-header {
 /*--------------------------------------------------------------
 # _s, WP Override
 --------------------------------------------------------------*/
+.entry-footer {
+	bottom:2em;
+	position:absolute;
+	padding:1em;
+	right:2em;
 
-
-ul.wp-block-gallery{
-    margin:0;
-}
-.block-editor-block-list__block[data-type="core/embed"][data-align="left"] .block-editor-block-list__block-edit,
-.block-editor-block-list__block[data-type="core/embed"][data-align="right"] .block-editor-block-list__block-edit,
-.wp-block-embed.alignleft, .wp-block-embed.alignright {
-    max-width: 50%;
-    width: auto;
+	background:#ffffff;
+	border-radius:5px;
+	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.5);
 }
 
-/* override wp editor height */
-.wp-block-html .block-editor-plain-text {
-    max-height: unset;
-}
 /*--------------------------------------------------------------
 # Bootstrap Override
 --------------------------------------------------------------*/
@@ -1306,9 +1379,6 @@ body.parallax-header #content {
 body.parallax-header #content > .content-container {
 	min-width:100%;
 	width:100%;
-}
-body.parallax-header #content .content-container {
-	background-color:rgba(0,0,0,0);
 }
 
 /* parallax-simple */
