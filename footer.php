@@ -18,7 +18,6 @@
     </div><!-- .featured-image-footer -->
 
 	<footer id="colophon" class="site-footer">
-    <div class="content-container" >
 		<?php get_template_part( 'sidebar-templates/sidebar', 'footer-1' ); ?>
         <?php
             if ( has_nav_menu( 'footer-1' ) ) {
@@ -37,7 +36,6 @@
             }
         ?>
         <?php get_template_part( 'sidebar-templates/sidebar', 'footer-2' ); ?>
-    </div><!-- .content-container -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
