@@ -1246,6 +1246,11 @@ article .entry-header {
 /*--------------------------------------------------------------
 # Reusable Classes
 --------------------------------------------------------------*/
+.background-image {
+	background-image:url(image/background-image.png);
+    background-position:top center;
+    background-size:cover;
+}
 .min-vh-100 {
     min-height: 100vh !important;
 }
@@ -1320,6 +1325,9 @@ article .entry-header {
     bottom: 0;
     left: 0;
     right: 0;
+
+    background-size:cover;
+    background-position:center center;
 }
 /*--------------------------------------------------------------
 # Mobile/Desktop Classes
@@ -1370,7 +1378,7 @@ body.parallax-header .featured-image-header {
 body.parallax-header .featured-image-footer {
 	display:none;
 }
-body.parallax-header .post-thumbnail {
+body.parallax-header article > .post-thumbnail {
 	display:none;
 }
 body.parallax-header #content {

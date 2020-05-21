@@ -248,6 +248,19 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
 ) );
 
 
+$wp_customize->add_setting( 'background_image', array(
+    //default
+    'validate_callback' => 'vi_theme_custom_style_changed'
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'background_image_control',
+   array(
+      'label' => __( 'Background Image' ),
+      'description' => esc_html__( 'Set this image as an element\'s background with the class .background-image.' ),
+      'section' => 'vi_theme_custom_section_general', // Required, core or custom.
+      'settings' => 'background_image'
+   )
+) );
+
 /*--------------------------------------------------------------
 # Colors
 --------------------------------------------------------------*/
@@ -1173,6 +1186,10 @@ function vi_theme_customize_css_default()
 
 
 
+
+            .background-image {
+                background-image: url(<?php echo vi_theme_get_customizer_value('background_image'); ?>);
+            }
 
             .color-bg-1 {
                 background-color: <?php echo vi_theme_get_customizer_value('color_bg_1'); ?>;
