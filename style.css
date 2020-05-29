@@ -1053,8 +1053,6 @@ body.page {
 }
 #page {
 	height:auto;
-
-	overflow:auto;
 }
 .content-container {
 	margin:0 auto;
