@@ -81,11 +81,19 @@ function vi_theme_customize_register( $wp_customize ) {
 
 	$wp_customize->add_section( 'vi_theme_custom_section_general', array(
 		'title' => __('General Settings' ),
-		'description' => __( 'Change custom Theme settings here.' ),
+		'description' => __( 'Set your Logo here.' ),
 		'priority' => 160,
 		'capability' => 'edit_theme_options',
 		'panel' => 'vi_theme_custom_panel',
 	) );
+
+    $wp_customize->add_section( 'vi_theme_custom_section_default_image', array(
+        'title' => __('Default Image Settings' ),
+        'description' => __( 'Set your default iamges.' ),
+        'priority' => 160,
+        'capability' => 'edit_theme_options',
+        'panel' => 'vi_theme_custom_panel',
+    ) );
 
 	$wp_customize->add_section( 'vi_theme_custom_section_color_chooser', array(
 		'title' => __('Color Chooser' ),
@@ -220,6 +228,9 @@ $wp_customize->add_control( 'vi_theme_parallax_height_control',
     )
 );
 
+/*--------------------------------------------------------------
+# default images
+--------------------------------------------------------------*/
 
 $wp_customize->add_setting( 'content_image', array(
     //default
@@ -229,7 +240,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
    array(
       'label' => __( 'Default Featured Image' ),
       'description' => esc_html__( 'Select an image to use as the default for pages with no featured image.' ),
-      'section' => 'vi_theme_custom_section_general', // Required, core or custom.
+      'section' => 'vi_theme_custom_section_default_image', // Required, core or custom.
       'settings' => 'content_image'
    )
 ) );
@@ -242,21 +253,21 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
    array(
       'label' => __( 'Default Secondary Image' ),
       'description' => esc_html__( 'Select an image to use as the default/secondary for pages with no featured image.' ),
-      'section' => 'vi_theme_custom_section_general', // Required, core or custom.
+      'section' => 'vi_theme_custom_section_default_image', // Required, core or custom.
       'settings' => 'content_image_002'
    )
 ) );
 
-
 $wp_customize->add_setting( 'background_image', array(
     //default
-    'validate_callback' => 'vi_theme_custom_style_changed'
+    'validate_callback' => 'vi_theme_custom_style_changed',
+    'default' => get_template_directory_uri() . '/image/background-image.png',
 ) );
 $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'background_image_control',
    array(
       'label' => __( 'Background Image' ),
       'description' => esc_html__( 'Set this image as an element\'s background with the class .background-image.' ),
-      'section' => 'vi_theme_custom_section_general', // Required, core or custom.
+      'section' => 'vi_theme_custom_section_default_image', // Required, core or custom.
       'settings' => 'background_image'
    )
 ) );
@@ -825,6 +836,34 @@ $wp_customize->add_control( 'content_text_color',
    )
 );
 
+$wp_customize->add_setting( 'content_link_color',
+    array(
+        'default' => 'color_text_b',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'content_link_color',
+   array(
+      'label' => __( 'Content Link Color' ),
+      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
+      'section' => 'vi_theme_custom_section_content',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'color_text_1' => __( 'Color 1' ),
+         'color_text_2' => __( 'Color 2' ),
+         'color_text_3' => __( 'Color 3' ),
+         'color_text_4' => __( 'Color 4' ),
+         'color_text_b' => __( 'Color Black' ),
+         'color_text_w' => __( 'Color White' ),
+         'color_text_c' => __( 'Color Clear' )
+      )
+   )
+);
+
 
 /*--------------------------------------------------------------
 # Footer
@@ -898,6 +937,35 @@ $wp_customize->add_control( 'footer_text_color',
       )
    )
 );
+
+$wp_customize->add_setting( 'footer_link_color',
+    array(
+        'default' => 'color_text_b',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'footer_link_color',
+   array(
+      'label' => __( 'Footer Link Color' ),
+      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
+      'section' => 'vi_theme_custom_section_footer',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'color_text_1' => __( 'Color 1' ),
+         'color_text_2' => __( 'Color 2' ),
+         'color_text_3' => __( 'Color 3' ),
+         'color_text_4' => __( 'Color 4' ),
+         'color_text_b' => __( 'Color Black' ),
+         'color_text_w' => __( 'Color White' ),
+         'color_text_c' => __( 'Color Clear' )
+      )
+   )
+);
+
 
 /*--------------------------------------------------------------
 # test
@@ -1176,11 +1244,21 @@ function vi_theme_customize_css_default()
                 <?php echo( $content_bg_img . ';' ); ?>
             }
 
+            #content a,
+            #content a:visited {
+                color: <?php echo vi_theme_get_customizer_value('content_link_color'); ?>;
+            }
+
             #colophon {
                 color: <?php echo vi_theme_get_customizer_value('footer_text_color'); ?>;
 
                 background-color: <?php echo vi_theme_get_customizer_value('footer_bg_color'); ?>;
                 <?php echo( $footer_bg_img . ';' ); ?>
+            }
+
+            #colophon a,
+            #colophon a:visited {
+                color: <?php echo vi_theme_get_customizer_value('footer_link_color'); ?>;
             }
 
 
