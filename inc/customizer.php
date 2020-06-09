@@ -1146,6 +1146,7 @@ function vi_theme_customize_css()
 	{
         //get the default output
 	    $content = vi_theme_customize_css_default();
+        $content .= vi_theme_customize_css_child_override();
         //write it to the file
 	    file_put_contents ( get_stylesheet_directory() . '/style_customize_' . get_current_blog_id() . '.css' , $content );
         //update the time
@@ -1159,7 +1160,7 @@ endif;
 
 /**
  * output the default style
- * can/should be used by the child theme rather than rewriting all of this.
+ * the child theme shoudl use vi_theme_customize_css_child_override rather than rewriting this function
  * only returns the output buffer content, does not actually output anything.
  *
  * @link
@@ -1311,6 +1312,35 @@ function vi_theme_customize_css_default()
             .color-text-c {
                 color: <?php echo vi_theme_get_customizer_value('color_text_c'); ?>;
             }
+        </style>
+    <?php
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    return $content;
+}
+endif;
+
+
+/**
+ * output the child override style
+ * can/should be used by the child theme rather than rewriting the whole customizer.php
+ * only returns the output buffer content, does not actually output anything.
+ *
+ * @link
+ * @version 8.3.2006
+ * @since 8.3.2006
+ */
+if ( ! function_exists( 'vi_theme_customize_css_child_override' ) ) :
+function vi_theme_customize_css_child_override()
+{
+    //create neede variables
+
+    //start capturing the output
+    ob_start();
+    ?>
+        <style type="text/css">
+            /* Custom Child Theme */
         </style>
     <?php
     $content = ob_get_contents();
