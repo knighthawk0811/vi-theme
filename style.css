@@ -1227,6 +1227,12 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 # Content Area
 --------------------------------------------------------------*/
 
+
+#content .entry-header,
+#content .entry-content > * {
+    padding:0 0.5em;
+}
+
 .post-thumbnail {
 	margin: 0 auto;
 	max-width: 50%;
@@ -1243,6 +1249,111 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 /*--------------------------------------------------------------
 # Reusable Classes
 --------------------------------------------------------------*/
+.text-shadow {
+	text-shadow:0 0 5px rgba(0,0,0,0.5);
+}
+.text-shadow-light {
+	text-shadow:0 0 5px rgba(255,255,255,0.5);
+}
+
+.box-shadow {
+	box-shadow:0px 0px 5px 0px #000000;
+}
+.box-shadow-t {
+	box-shadow:0px -5px 5px -5px #000000;
+}
+.box-shadow-r {
+	box-shadow:5px 0px 5px -5px #000000;
+}
+.box-shadow-b {
+	box-shadow:0px 5px 5px -5px #000000;
+}
+.box-shadow-l {
+	box-shadow:-5px 0px 5px -5px #000000;
+}
+.box-shadow-tr {
+	box-shadow:0px -5px 5px -5px #000000,5px 0px 5px -5px #000000;
+}
+.box-shadow-tl {
+	box-shadow:0px -5px 5px -5px #000000,-5px 0px 5px -5px #000000;
+}
+.box-shadow-br {
+	box-shadow:0px 5px 5px -5px #000000,5px 0px 5px -5px #000000;
+}
+.box-shadow-bl {
+	box-shadow:0px 5px 5px -5px #000000,-5px 0px 5px -5px #000000;
+}
+.box-shadow-rl,
+.box-shadow-x {
+	box-shadow:5px 0px 5px -5px #000000, -5px 0px 5px -5px #000000;
+}
+.box-shadow-tb,
+.box-shadow-y {
+	box-shadow:0px -5px 5px -5px #000000, 0px 5px 5px -5px #000000;
+}
+.box-shadow-trb {
+	box-shadow:0px -5px 5px -5px #000000,5px 0px 5px -5px #000000,0px 5px 5px -5px #000000;
+}
+.box-shadow-rbl {
+	box-shadow:5px 0px 5px -5px #000000,0px 5px 5px -5px #000000,-5px 0px 5px -5px #000000;
+}
+.box-shadow-tbl {
+	box-shadow:0px 5px 5px -5px #000000,-5px 0px 5px -5px #000000,0px -5px 5px -5px #000000;
+}
+.box-shadow-trl {
+	box-shadow:-5px 0px 5px -5px #000000,0px -5px 5px -5px #000000,5px 0px 5px -5px #000000;
+}
+
+/*box shadow inset*/
+.box-shadow-inset {
+	box-shadow:inset 0px 0px 5px 0px #000000;
+}
+.box-shadow-inset-t {
+	box-shadow:inset 0px -5px 5px -5px #000000;
+}
+.box-shadow-inset-r {
+	box-shadow:inset 5px 0px 5px -5px #000000;
+}
+.box-shadow-inset-b {
+	box-shadow:inset 0px 5px 5px -5px #000000;
+}
+.box-shadow-inset-l {
+	box-shadow:inset -5px 0px 5px -5px #000000;
+}
+.box-shadow-inset-tr {
+	box-shadow:inset 0px -5px 5px -5px #000000,inset 5px 0px 5px -5px #000000;
+}
+.box-shadow-inset-tl {
+	box-shadow:inset 0px -5px 5px -5px #000000,inset -5px 0px 5px -5px #000000;
+}
+.box-shadow-inset-br {
+	box-shadow:inset 0px 5px 5px -5px #000000,inset 5px 0px 5px -5px #000000;
+}
+.box-shadow-bl {
+	box-shadow:inset 0px 5px 5px -5px #000000,inset -5px 0px 5px -5px #000000;
+}
+.box-shadow-inset-rl,
+.box-shadow-inset-x {
+	box-shadow:inset 5px 0px 5px -5px #000000,inset -5px 0px 5px -5px #000000;
+}
+.box-shadow-inset-tb,
+.box-shadow-inset-y {
+	box-shadow:inset 0px -5px 5px -5px #000000,inset 0px 5px 5px -5px #000000;
+}
+.box-shadow-inset-trb {
+	box-shadow:inset 0px -5px 5px -5px #000000,inset 5px 0px 5px -5px #000000,inset 0px 5px 5px -5px #000000;
+}
+.box-shadow-inset-rbl {
+	box-shadow:inset 5px 0px 5px -5px #000000,inset 0px 5px 5px -5px #000000,inset -5px 0px 5px -5px #000000;
+}
+.box-shadow-inset-tbl {
+	box-shadow:inset 0px 5px 5px -5px #000000,inset -5px 0px 5px -5px #000000,inset 0px -5px 5px -5px #000000;
+}
+.box-shadow-inset-trl {
+	box-shadow:inset -5px 0px 5px -5px #000000,inset 0px -5px 5px -5px #000000,inset 5px 0px 5px -5px #000000;
+}
+
+
 .background-image {
 	background-image:url(image/background-image.png);
     background-position:top center;
@@ -1344,6 +1455,8 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 	background:#ffffff;
 	border-radius:5px;
 	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.5);
+
+	z-index:9999;
 }
 
 /*--------------------------------------------------------------
@@ -1397,7 +1510,7 @@ body.parallax-simple #masthead #sidebar-header-2 {
 	box-shadow:none;
 }
 body.parallax-simple #main > article .entry-header {
-	display:none;
+	/*display:none;*/
 }
 body.parallax-simple .featured-image-header,
 body.parallax-simple .featured-image-footer {
