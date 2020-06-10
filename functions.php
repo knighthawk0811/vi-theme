@@ -618,9 +618,9 @@ function vi_prettyPhoto_custom_action() {
 		//class="prettyGallery" for gallery
 	?>
         <script type="text/javascript">
-        	//add lightbox
+        	//add single lightbox
 			jQuery(document).ready(function($) {
-				$(".prettyPhoto a[href*='.jpg'], .prettyPhoto a[href*='.jpeg'], .prettyPhoto a[href*='.gif'], .prettyPhoto a[href*='.png']").prettyPhoto({
+				$(".prettyPhoto a[href*='.jpg'][href*='.jpeg'][href*='.gif'][href*='.png']").prettyPhoto({
 					animationSpeed: 'fast', /* fast/slow/normal */
 					padding: 40, /* padding for each side of the picture */
 					opacity: 0.35, /* Value betwee 0 and 1 */
@@ -632,7 +632,21 @@ function vi_prettyPhoto_custom_action() {
 
 			//add to gallery
 			jQuery(document).ready(function($) {
-				$(".prettyGallery a[href*='.jpg'], .prettyGallery a[href*='.jpeg'], .prettyGallery a[href*='.gif'], .prettyGallery a[href*='.png']").attr('rel','prettyPhoto[pp_gal]');
+				//this works great on a single gallery per page
+				//$(".prettyGallery a[href*='.jpg'][href*='.jpeg'][href*='.gif'][href*='.png']").attr('rel','prettyPhoto[pp_gal]');
+
+				//ability to have multiple galleries per page
+				var i = 0;
+				//get all the galleries
+				$( ".prettyGallery" ).each(function(index, item) {
+					i++;
+					//find ALL the children of said gallery
+					$( this ).find("a[href*='.jpg'][href*='.jpeg'][href*='.gif'][href*='.png']").each( function( index, item) {
+						//place the gallery id on the children
+						//should be matching for all children in a single gallery
+						$( this ).attr( 'rel', 'prettyPhoto[gal-' + i + ']')
+					});
+				});
 			})
         </script>
     <?php
