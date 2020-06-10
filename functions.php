@@ -618,9 +618,12 @@ function vi_prettyPhoto_custom_action() {
 		//class="prettyGallery" for gallery
 	?>
         <script type="text/javascript">
+        	//prettyPhoto
+
         	//add single lightbox
 			jQuery(document).ready(function($) {
-				$(".prettyPhoto a[href*='.jpg'][href*='.jpeg'][href*='.gif'][href*='.png']").prettyPhoto({
+				//$(".prettyPhoto a[href*='.jpg'], .prettyPhoto a[href*='.jpeg'], .prettyPhoto a[href*='.gif'], .prettyPhoto a[href*='.png']").attr('rel','prettyPhoto');
+				$(".prettyPhoto a[href*='.jpg'], .prettyPhoto a[href*='.jpeg'], .prettyPhoto a[href*='.gif'], .prettyPhoto a[href*='.png']").prettyPhoto({
 					animationSpeed: 'fast', /* fast/slow/normal */
 					padding: 40, /* padding for each side of the picture */
 					opacity: 0.35, /* Value betwee 0 and 1 */
@@ -641,7 +644,7 @@ function vi_prettyPhoto_custom_action() {
 				$( ".prettyGallery" ).each(function(index, item) {
 					i++;
 					//find ALL the children of said gallery
-					$( this ).find("a[href*='.jpg'][href*='.jpeg'][href*='.gif'][href*='.png']").each( function( index, item) {
+					$( this ).find("a[href*='.jpg'], a[href*='.jpeg'], a[href*='.gif'], a[href*='.png']").each( function( index, item) {
 						//place the gallery id on the children
 						//should be matching for all children in a single gallery
 						$( this ).attr( 'rel', 'prettyPhoto[gal-' + i + ']')
