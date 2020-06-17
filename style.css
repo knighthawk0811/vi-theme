@@ -1230,10 +1230,11 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 
 #content .entry-header,
 #content .entry-content > * {
-    padding:0 0.5em;
+    padding:0 0.5rem;
 }
 
 .post-thumbnail {
+	display:block;
 	margin: 0 auto;
 	max-width: 50%;
 
@@ -1446,8 +1447,8 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 /*--------------------------------------------------------------
 # _s, WP Override
 --------------------------------------------------------------*/
-.entry-footer {
-	bottom:2em;
+.entry-footer .edit-link {
+	bottom:4em;
 	position:absolute;
 	padding:1em;
 	right:2em;
@@ -1456,7 +1457,11 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 	border-radius:5px;
 	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.5);
 
+	opacity:0.5;
 	z-index:9999;
+}
+.entry-footer .edit-link:hover {
+	opacity:1;
 }
 
 /*--------------------------------------------------------------
@@ -1505,15 +1510,20 @@ body.parallax-header #content > .content-container {
 	width:100%;
 }
 
-/* parallax-simple */
-body.parallax-simple #masthead #sidebar-header-2 {
+/* parallax-single */
+/* parallax-double */
+body.parallax-single #masthead #sidebar-header-2,
+body.parallax-double #masthead #sidebar-header-2 {
 	box-shadow:none;
 }
-body.parallax-simple #main > article .entry-header {
+body.parallax-single #main > article .entry-header,
+body.parallax-double #main > article .entry-header {
 	/*display:none;*/
 }
-body.parallax-simple .featured-image-header,
-body.parallax-simple .featured-image-footer {
+body.parallax-single .featured-image-header,
+body.parallax-single .featured-image-footer,
+body.parallax-double .featured-image-header,
+body.parallax-double .featured-image-footer {
 	min-height: 20em;
 
 	background-attachment: fixed;
@@ -1523,7 +1533,100 @@ body.parallax-simple .featured-image-footer {
 	background-size: cover;
 	box-shadow: inset 0px 5px 5px -5px #000000, inset 0px -5px 5px -5px #000000;
 }
-body.parallax-simple #main > article > .post-thumbnail {
+body.parallax-single .featured-image-footer {
+	display:none;
+}
+body.parallax-single #main > article > .post-thumbnail,
+body.parallax-double #main > article > .post-thumbnail {
+	display:none;
+}
+
+/* hero-header */
+body.hero-header #masthead #sidebar-header-2 {
+	box-shadow:none;
+}
+body.hero-header #main > article .entry-header {
+	display:none;
+}
+body.hero-header .featured-image-header,
+body.hero-header .featured-image-footer {
+	min-height: 20em;
+
+	background-attachment: unset;
+	background-color: rgba(0,0,0,0);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	box-shadow: inset 0px 5px 5px -5px #000000, inset 0px -5px 5px -5px #000000;
+}
+body.hero-header .featured-image-header {
+    height:100vh;
+    margin-bottom:-80vh;
+}
+body.hero-header .featured-image-footer {
+	display:none;
+}
+body.hero-header #main > article > .post-thumbnail {
+	display:none;
+}
+body.hero-header #content {
+	background-color:rgba(0,0,0,0);
+}
+body.hero-header #content > .content-container {
+	min-width:100%;
+	width:100%;
+}
+/* hero-single */
+/* hero-double */
+body.hero-single #masthead #sidebar-header-2,
+body.hero-double #masthead #sidebar-header-2 {
+	box-shadow:none;
+}
+body.hero-single #main > article .entry-header,
+body.hero-double #main > article .entry-header {
+	/*display:none;*/
+}
+body.hero-single .featured-image-header,
+body.hero-single .featured-image-footer,
+body.hero-double .featured-image-header,
+body.hero-double .featured-image-footer {
+	min-height: 20em;
+
+	background-attachment:unset;
+	background-color: rgba(0,0,0,0);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	box-shadow: inset 0px 5px 5px -5px #000000, inset 0px -5px 5px -5px #000000;
+}
+body.hero-single .featured-image-footer {
+	display:none;
+}
+body.hero-single #main > article > .post-thumbnail,
+body.hero-double #main > article > .post-thumbnail {
+	display:none;
+}
+
+/* blank-iframe */
+body.blank-iframe #modal-button {
+	display:none;
+}
+body.blank-iframe #masthead {
+	display:none;
+}
+body.blank-iframe .featured-image-header {
+	display:none;
+}
+body.blank-iframe .entry-footer {
+    display: none;
+}
+body.blank-iframe .post-navigation {
+    display: none;
+}
+body.blank-iframe .featured-image-footer {
+    display: none;
+}
+body.blank-iframe #colophon {
 	display:none;
 }
 /*--------------------------------------------------------------

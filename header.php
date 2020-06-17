@@ -23,6 +23,8 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<?php if( !in_array( 'blank-iframe', vi_theme_body_add_class() ) ): ?>
+
 <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'vi_theme' ); ?></a>
 
 <div id="modal-main-shade"></div>
@@ -99,6 +101,8 @@
 
 	<div class="featured-image-header">
 	</div><!-- .featured-image-header -->
+
+<?php endif; //body class blank-iframe ?>
 
 	<div id="content" class="site-content">
 	<div class="content-container" >

@@ -14,6 +14,9 @@
 	</div><!-- .content-container -->
     </div><!-- #content -->
 
+
+<?php if( !in_array( 'blank-iframe', vi_theme_body_add_class() ) ): ?>
+
     <div class="featured-image-footer">
     </div><!-- .featured-image-footer -->
 
@@ -37,6 +40,9 @@
         ?>
         <?php get_template_part( 'sidebar-templates/sidebar', 'footer-2' ); ?>
 	</footer><!-- #colophon -->
+
+
+<?php endif; //body class blank-iframe ?>
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

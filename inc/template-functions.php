@@ -41,6 +41,17 @@ function vi_theme_body_classes( $classes = null ) {
 		$classes[] = 'hfeed';
 	}
 
+	//add post category to classes for single posts
+	if (is_single() )
+	{
+		global $post;
+		foreach((get_the_category($post->ID)) as $category)
+		{
+			// add category slug to the $classes array
+			$classes[] = $category->category_nicename;
+		}
+    }
+
 	return $classes;
 }
 add_filter( 'body_class', 'vi_theme_body_classes' );

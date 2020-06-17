@@ -126,9 +126,9 @@ if ( ! function_exists( 'vi_theme_post_thumbnail' ) ) :
 		if ( is_singular() ) :
 
 			?>
-			<div class="post-thumbnail">
+			<a class="post-thumbnail prettyPhoto" href="<?php the_post_thumbnail_url() ?>">
 				<?php the_post_thumbnail(); ?>
-			</div><!-- .post-thumbnail -->
+			</a><!-- .post-thumbnail -->
 			<?php
 
 		else :

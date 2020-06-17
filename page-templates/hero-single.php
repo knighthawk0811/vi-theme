@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Template Name: Parallax Simple
+ * Template Name: Hero Single
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -9,7 +9,7 @@
  */
 
 //add class to body
-vi_theme_body_add_class( 'parallax-simple' );
+vi_theme_body_add_class( 'hero-single' );
 get_header();
 ?>
 	<div id="primary" class="content-area">
