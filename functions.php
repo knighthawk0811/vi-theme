@@ -206,7 +206,7 @@ if ( ! function_exists( 'vi_theme_setup' ) ) :
 
 		//custom image sizes
 		add_theme_support( 'crop-portrait' );
-		add_image_size( 'crop-portrait', 480, 854, array( 'center', 'center' ) );
+		add_image_size( 'crop-portrait', 576, 1024, array( 'center', 'center' ) );
 		add_theme_support( 'crop-landscape' );
 		add_image_size( 'crop-landscape', 1024, 576, array( 'center', 'center' ) );
 	}
@@ -621,9 +621,9 @@ function vi_prettyPhoto_custom_action() {
         	//prettyPhoto
 
         	//add single lightbox
-			jQuery(document).ready(function($) {
+			jQuery(function($) {
 				//$(".prettyPhoto a[href*='.jpg'], .prettyPhoto a[href*='.jpeg'], .prettyPhoto a[href*='.gif'], .prettyPhoto a[href*='.png']").attr('rel','prettyPhoto');
-				$(".prettyPhoto a[href*='.jpg'], .prettyPhoto a[href*='.jpeg'], .prettyPhoto a[href*='.gif'], .prettyPhoto a[href*='.png']").prettyPhoto({
+				$(".prettyPhoto a[href*='.jpg'], .prettyPhoto a[href*='.jpeg'], .prettyPhoto a[href*='.gif'], .prettyPhoto a[href*='.png'], a[href*='.jpg'].prettyPhoto, a[href*='.jpeg'].prettyPhoto, a[href*='.gif'].prettyPhoto, a[href*='.png'].prettyPhoto").prettyPhoto({
 					animationSpeed: 'fast', /* fast/slow/normal */
 					padding: 40, /* padding for each side of the picture */
 					opacity: 0.35, /* Value betwee 0 and 1 */
@@ -634,7 +634,7 @@ function vi_prettyPhoto_custom_action() {
 			})
 
 			//add to gallery
-			jQuery(document).ready(function($) {
+			jQuery(function($) {
 				//this works great on a single gallery per page
 				//$(".prettyGallery a[href*='.jpg'][href*='.jpeg'][href*='.gif'][href*='.png']").attr('rel','prettyPhoto[pp_gal]');
 
@@ -698,6 +698,7 @@ endif;
  * Adds a meta box to the post editing screen
  *
  * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+ * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
  * @version 9.0.2003
  * @since 9.0.2003
  */
@@ -711,6 +712,7 @@ add_action( 'add_meta_boxes', 'vi_theme_featured_image_02_meta' );
  * Outputs the content of the meta box
  *
  * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+ * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
  * @version 9.0.2003
  * @since 9.0.2003
  */
@@ -754,6 +756,7 @@ function vi_theme_featured_image_02_meta_callback( $post )
  * Saves the custom meta input
  *
  * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+ * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
  * @version 9.0.2003
  * @since 9.0.2003
  */
@@ -795,6 +798,7 @@ add_action( 'save_post', 'vi_theme_featured_image_02_meta_save' );
  * Loads the image management javascript
  *
  * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+ * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
  * @version 9.0.2003
  * @since 9.0.2003
  */
