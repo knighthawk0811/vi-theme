@@ -1266,50 +1266,65 @@ function vi_theme_customize_css_default()
 
 
 
-            .background-image {
+            .background-image,
+            #content .background-image {
                 background-image: url(<?php echo vi_theme_get_customizer_value('background_image'); ?>);
             }
 
-            .color-bg-1 {
+            .color-bg-1,
+            #content .color-bg-1 {
                 background-color: <?php echo vi_theme_get_customizer_value('color_bg_1'); ?>;
             }
-            .color-bg-2 {
+            .color-bg-2,
+            #content .color-bg-2 {
                 background-color: <?php echo vi_theme_get_customizer_value('color_bg_2'); ?>;
             }
-            .color-bg-3 {
+            .color-bg-3,
+            #content .color-bg-3 {
                 background-color: <?php echo vi_theme_get_customizer_value('color_bg_3'); ?>;
             }
-            .color-bg-4 {
+            .color-bg-4,
+            #content .color-bg-4 {
                 background-color: <?php echo vi_theme_get_customizer_value('color_bg_4'); ?>;
             }
-            .color-bg-b {
+            .color-bg-b,
+            #content .color-bg-b {
                 background-color: <?php echo vi_theme_get_customizer_value('color_bg_b'); ?>;
             }
-            .color-bg-w {
+            .color-bg-w,
+            #content .color-bg-w {
                 background-color: <?php echo vi_theme_get_customizer_value('color_bg_w'); ?>;
             }
-            .color-bg-c {
+            .color-bg-c,
+            #content .color-bg-c {
                 background-color: <?php echo vi_theme_get_customizer_value('color_bg_c'); ?>;
             }
-            .color-text-1 {
+            .color-text-1,
+            #content .color-text-1 {
                 color: <?php echo vi_theme_get_customizer_value('color_text_1'); ?>;
             }
-            .color-text-2 {
+            .color-text-2,
+            #content .color-text-2 {
                 color: <?php echo vi_theme_get_customizer_value('color_text_2'); ?>;
             }
-            .color-text-3 {
+            .color-text-3,
+            #content .color-text-3 {
                 color: <?php echo vi_theme_get_customizer_value('color_text_3'); ?>;
             }
-            .color-text-4 {
+            .color-text-4,
+            #content .color-text-4 {
                 color: <?php echo vi_theme_get_customizer_value('color_text_4'); ?>;
             }
-            .color-text-b {
+            .color-text-b,
+            #content .color-text-b {
                 color: <?php echo vi_theme_get_customizer_value('color_text_b'); ?>;
             }
-            .color-text-w {
+            .color-text-w,
+            #content .color-text-w {
                 color: <?php echo vi_theme_get_customizer_value('color_text_w'); ?>;
             }
-            .color-text-c {
+            .color-text-c
+            #content .color-text-c {
                 color: <?php echo vi_theme_get_customizer_value('color_text_c'); ?>;
             }
         </style>
