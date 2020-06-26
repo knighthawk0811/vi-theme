@@ -11,7 +11,16 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+		<?php
+			if(get_post_meta($post->ID, 'alternate_title_enabled', true) == "yes")
+			{
+				echo('<h1 class="entry-title">' . get_post_meta($post->ID, 'alternate_title', true) . '</h1>');
+			}
+			else
+			{
+				the_title( '<h1 class="entry-title">', '</h1>' );
+			}
+        ?>
 	</header><!-- .entry-header -->
 
 	<?php vi_theme_post_thumbnail(); ?>

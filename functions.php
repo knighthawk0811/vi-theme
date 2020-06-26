@@ -263,7 +263,7 @@ function vi_theme_widgets_init() {
 		'after_title'   => '</h3>',
 	) );
 	register_sidebar( array(
-		'name'          => esc_html__( 'Urgent Notice', 'vi_theme' ),
+		'name'          => esc_html__( 'Urgent Notice - 1', 'vi_theme' ),
 		'id'            => 'sidebar-urgent-notice-1',
 		'description'   => esc_html__( 'very top of the page.', 'vi_theme' ),
 		'before_widget' => '<section class="widget %1$s %2$s">',
@@ -290,7 +290,7 @@ function vi_theme_widgets_init() {
 		'after_title'   => '</h3>',
 	) );
 	register_sidebar( array(
-		'name'          => esc_html__( 'Urgent Notice', 'vi_theme' ),
+		'name'          => esc_html__( 'Urgent Notice - 2', 'vi_theme' ),
 		'id'            => 'sidebar-urgent-notice-2',
 		'description'   => esc_html__( 'after the header, before the content.', 'vi_theme' ),
 		'before_widget' => '<section class="widget %1$s %2$s">',
@@ -333,6 +333,15 @@ function vi_theme_widgets_init() {
 		'after_widget'  => '</section>',
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
+	) );
+	register_sidebar( array(
+		'name'          => esc_html__( 'Urgent Notice - 3', 'vi_theme' ),
+		'id'            => 'sidebar-urgent-notice-3',
+		'description'   => esc_html__( 'auto pop-up at the very bottom of the page.', 'vi_theme' ),
+		'before_widget' => '<section class="widget %1$s %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<div class="widget-title">',
+		'after_title'   => '</div>',
 	) );
 }
 add_action( 'widgets_init', 'vi_theme_widgets_init' );
@@ -694,128 +703,244 @@ endif;
 /*--------------------------------------------------------------
 # Secondary Featured Image
 --------------------------------------------------------------*/
-/**
- * Adds a meta box to the post editing screen
- *
- * @link https://themefoundation.com/wordpress-meta-boxes-guide/
- * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
- * @version 9.0.2003
- * @since 9.0.2003
- */
-function vi_theme_featured_image_02_meta()
+abstract class VI_theme_featured_image_02
 {
-    add_meta_box( 'vi_theme_featured_image_02', __( 'Secondary Image', 'vi_theme' ), 'vi_theme_featured_image_02_meta_callback', 'page', 'side' );
-}
-add_action( 'add_meta_boxes', 'vi_theme_featured_image_02_meta' );
+	/**
+	 * Adds a meta box to the post editing screen
+	 *
+	 * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+	 * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
+	 * @version 9.0.2006
+	 * @since 9.0.2003
+	 */
+	function add()
+	{
+	    add_meta_box( 'vi_theme_featured_image_02', __( 'Secondary Image', 'vi_theme' ), [self::class, 'callback'], 'page', 'side' );
+	    add_meta_box( 'vi_theme_featured_image_02', __( 'Secondary Image', 'vi_theme' ), [self::class, 'callback'], 'post', 'side' );
+	}
 
-/**
- * Outputs the content of the meta box
- *
- * @link https://themefoundation.com/wordpress-meta-boxes-guide/
- * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
- * @version 9.0.2003
- * @since 9.0.2003
- */
-function vi_theme_featured_image_02_meta_callback( $post )
+	/**
+	 * Outputs the content of the meta box
+	 *
+	 * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+	 * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
+	 * @version 9.0.2006
+	 * @since 9.0.2003
+	 */
+	function callback( $post )
+	{
+	    wp_nonce_field( basename( __FILE__ ), 'vi_theme_nonce' );
+	    $vi_theme_stored_meta = get_post_meta( $post->ID );
+
+	    $image_id = "";
+	    if( isset ( $vi_theme_stored_meta['vi-secondary-image-id'] ) )
+	    {
+	    	$image_id = $vi_theme_stored_meta['vi-secondary-image-id'][0];
+	    }
+
+	    $image_button_add_text = 'Add Image';
+	    if( !empty($image_id)  )
+	    {
+	    	$image_button_add_text = 'Replace Image';
+	    }
+
+	    //$image_url = vi_var_dump_return( wp_get_attachment_image_src($image_id, 'crop-landscape') );
+
+	    $image_url = wp_get_attachment_image_src($image_id, 'crop-landscape')[0];
+	    ?>
+
+	    <p class="vi-secondary-image-container">
+		    <img id="vi-secondary-image" class=" <?php if( empty($image_id)){ echo( ' hidden '); } ?>" src="<?php echo( $image_url ); ?>" alt="Secondary Image" />
+		    <br>
+
+		    <input type="text" readonly="" name="vi-secondary-image-id" id="vi-secondary-image-id" class=" <?php if( empty($image_id)){ echo( ' hidden '); } ?> " value="<?php echo( $image_id ) ?>" />
+		    <br>
+
+		    <input type="button" id="vi-secondary-image-button" class="button" value="<?php echo( $image_button_add_text ) ?>" />
+		    <br>
+
+		    <input type="button" id="vi-secondary-image-button-remove" class="button  <?php if( empty($image_id)){ echo( ' hidden '); } ?>" value="Remove Image" />
+
+		</p>
+
+	    <?php
+	}
+	/**
+	 * Saves the custom meta input
+	 *
+	 * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+	 * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
+	 * @version 9.0.2006
+	 * @since 9.0.2003
+	 */
+	function save( $post_id ) {
+
+	    // Checks save status
+	    $is_autosave = wp_is_post_autosave( $post_id );
+	    $is_revision = wp_is_post_revision( $post_id );
+	    //$is_valid_nonce = check_admin_referer( basename( __FILE__ ), 'vi_theme_nonce');
+	    $is_valid_nonce = ( isset( $_POST[ 'vi_theme_nonce' ] ) && wp_verify_nonce( $_POST[ 'vi_theme_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+
+	    // Exits script depending on save status
+	    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+	        return $post_id;
+	    }
+	    // check permissions
+		if ( !current_user_can( 'edit_page', $post_id ) )
+		{
+			return $post_id;
+		}
+		elseif ( !current_user_can( 'edit_post', $post_id ) )
+		{
+			return $post_id;
+		}
+
+	    // Checks for input and saves if needed
+		//if( isset( $_POST[ 'vi-secondary-image' ] ) ) {
+		    //update_post_meta( $post_id, 'vi-secondary-image', $_POST[ 'vi-secondary-image' ] );
+		//}
+	    // Checks for input and saves if needed
+		if( isset( $_POST[ 'vi-secondary-image-id' ] ) ) {
+		    update_post_meta( $post_id, 'vi-secondary-image-id', $_POST[ 'vi-secondary-image-id' ] );
+		}
+
+	}
+
+	/**
+	 * Loads the image management javascript
+	 *
+	 * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+	 * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
+	 * @version 9.0.2006
+	 * @since 9.0.2003
+	 */
+	function enqueue() {
+	    global $typenow;
+	    if( $typenow == 'page' ||  $typenow == 'post' ) {
+	        wp_enqueue_media();
+
+	        // Registers and enqueues the required javascript.
+	        wp_register_script( 'secondary-image', get_template_directory_uri() . '/js/meta_box.js', array( 'jquery' ) );
+	        wp_localize_script( 'secondary-image', 'featured_image_02',
+	            array(
+	                'title' => __( 'Choose or Upload an Image', 'vi_theme' ),
+	                'button' => __( 'Use this image', 'vi_theme' ),
+	            )
+	        );
+	        wp_enqueue_script( 'secondary-image' );
+	    }
+	}
+}
+add_action( 'add_meta_boxes', ['VI_theme_featured_image_02', 'add'] );
+add_action( 'save_post', ['VI_theme_featured_image_02', 'save'] );
+add_action( 'admin_enqueue_scripts', ['VI_theme_featured_image_02', 'enqueue'] );
+
+
+/*--------------------------------------------------------------
+# Alternate Title
+--------------------------------------------------------------*/
+abstract class VI_theme_alternate_title
 {
-    wp_nonce_field( basename( __FILE__ ), 'vi_theme_nonce' );
-    $vi_theme_stored_meta = get_post_meta( $post->ID );
-
-    $image_button_add_text = 'Add Image';
-    if( isset ( $vi_theme_stored_meta['vi-secondary-image-id'] ) )
-    {
-    	$image_button_add_text = 'Replace Image';
-    }
-
-    $image_id = "";
-    if( isset ( $vi_theme_stored_meta['vi-secondary-image-id'] ) )
-    {
-    	$image_id = $vi_theme_stored_meta['vi-secondary-image-id'][0];
-    }
-
-    //$image_url = vi_var_dump_return( wp_get_attachment_image_src($image_id, 'crop-landscape') );
-
-    $image_url = wp_get_attachment_image_src($image_id, 'crop-landscape')[0];
-    ?>
-
-    <p>
-	    <img id="vi-secondary-image" class="" src="<?php echo( $image_url ); ?>" />
-	    <br>
-	    <input type="text" readonly="" name="vi-secondary-image-id" id="vi-secondary-image-id" value="<?php echo( $image_id ) ?>" />
-	    <br>
-	    <input type="button" id="vi-secondary-image-button" class="button" value="<?php echo( $image_button_add_text ) ?>" />
-	    <br>
-	    <?php if(!empty($image_id) ): ?>
-	    <input type="button" id="vi-secondary-image-button-remove" class="button" value="Remove Image" />
-		<?php endif; ?>
-	</p>
-
-    <?php
-}
-/**
- * Saves the custom meta input
- *
- * @link https://themefoundation.com/wordpress-meta-boxes-guide/
- * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
- * @version 9.0.2003
- * @since 9.0.2003
- */
-function vi_theme_featured_image_02_meta_save( $post_id ) {
-
-    // Checks save status
-    $is_autosave = wp_is_post_autosave( $post_id );
-    $is_revision = wp_is_post_revision( $post_id );
-    //$is_valid_nonce = check_admin_referer( basename( __FILE__ ), 'vi_theme_nonce');
-    $is_valid_nonce = ( isset( $_POST[ 'vi_theme_nonce' ] ) && wp_verify_nonce( $_POST[ 'vi_theme_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
-
-    // Exits script depending on save status
-    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
-        return $post_id;
-    }
-    // check permissions
-	if ( !current_user_can( 'edit_page', $post_id ) )
+	/**
+	 * Adds a meta box to the post editing screen
+	 *
+	 * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+	 * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
+	 * @version 9.0.2006
+	 * @since 9.0.2006
+	 */
+	function add()
 	{
-		return $post_id;
+	    add_meta_box( 'vi_theme_alternate_title', __( 'Alternate Title', 'vi_theme' ), [self::class, 'callback'], 'page', 'side' );
+	    add_meta_box( 'vi_theme_alternate_title', __( 'Alternate Title', 'vi_theme' ), [self::class, 'callback'], 'post', 'side' );
 	}
-	elseif ( !current_user_can( 'edit_post', $post_id ) )
+
+	/**
+	 * Outputs the content of the meta box
+	 *
+	 * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+	 * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
+	 * @version 9.0.2006
+	 * @since 9.0.2006
+	 */
+	function callback( $post )
 	{
-		return $post_id;
+        //$post_meta = get_post_meta($post->ID);
+	    wp_nonce_field( basename( __FILE__ ), 'vi_theme_nonce' );
+
+        $alt_title = get_post_meta($post->ID, 'alternate_title', true);
+        $enabled = get_post_meta($post->ID, 'alternate_title_enabled', true);
+
+        ?>
+	    <p class="vi-secondary-image-container">
+            <label for="alternate_title"> Alternate Title </label>
+            <input id="alternate_title"
+                           name="alternate_title"
+                           type="text"
+                           value="<?php echo( esc_attr($alt_title) ); ?>"
+                    />
+            <br>
+            <label for="alternate_title_enabled"> Use the Alternate Title? </label>
+            <input id="alternate_title_enabled"
+                           name="alternate_title_enabled"
+                           type="checkbox"
+                           value="yes"
+                           <?php if( isset( $enabled ) ){checked( $enabled, 'yes' );} ?>"
+                    />
+            <br>
+        </p>
+            <br>
+        <?php
+
 	}
+	/**
+	 * Saves the custom meta input
+	 *
+	 * @link https://themefoundation.com/wordpress-meta-boxes-guide/
+	 * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
+	 * @version 9.0.2006
+	 * @since 9.0.2006
+	 */
+	function save( $post_id ) {
 
-    // Checks for input and saves if needed
-	//if( isset( $_POST[ 'vi-secondary-image' ] ) ) {
-	    //update_post_meta( $post_id, 'vi-secondary-image', $_POST[ 'vi-secondary-image' ] );
-	//}
-    // Checks for input and saves if needed
-	if( isset( $_POST[ 'vi-secondary-image-id' ] ) ) {
-	    update_post_meta( $post_id, 'vi-secondary-image-id', $_POST[ 'vi-secondary-image-id' ] );
+	    // Checks save status
+	    $is_autosave = wp_is_post_autosave( $post_id );
+	    $is_revision = wp_is_post_revision( $post_id );
+	    //$is_valid_nonce = check_admin_referer( basename( __FILE__ ), 'vi_theme_nonce');
+	    $is_valid_nonce = ( isset( $_POST[ 'vi_theme_nonce' ] ) && wp_verify_nonce( $_POST[ 'vi_theme_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+
+	    // Exits script depending on save status
+	    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+	        return $post_id;
+	    }
+	    // check permissions
+		if ( !current_user_can( 'edit_page', $post_id ) )
+		{
+			return $post_id;
+		}
+		elseif ( !current_user_can( 'edit_post', $post_id ) )
+		{
+			return $post_id;
+		}
+
+	    // Checks for input and saves if needed
+		if( isset( $_POST[ 'alternate_title' ] ) ) {
+		    update_post_meta( $post_id, 'alternate_title', $_POST[ 'alternate_title' ] );
+		}
+		else
+		{
+		    update_post_meta( $post_id, 'alternate_title', '' );
+		}
+	    // Checks for input and saves if needed
+		if( isset( $_POST[ 'alternate_title_enabled' ] ) ) {
+		    update_post_meta( $post_id, 'alternate_title_enabled', 'yes' );
+		}
+		else
+		{
+		    update_post_meta( $post_id, 'alternate_title_enabled', '' );
+		}
+
 	}
-
 }
-add_action( 'save_post', 'vi_theme_featured_image_02_meta_save' );
-
-/**
- * Loads the image management javascript
- *
- * @link https://themefoundation.com/wordpress-meta-boxes-guide/
- * @link https://developer.wordpress.org/plugins/metadata/custom-meta-boxes/
- * @version 9.0.2003
- * @since 9.0.2003
- */
-function vi_theme_featured_image_02_enqueue() {
-    global $typenow;
-    if( $typenow == 'page' ) {
-        wp_enqueue_media();
-
-        // Registers and enqueues the required javascript.
-        wp_register_script( 'secondary-image', get_template_directory_uri() . '/js/meta_box.js', array( 'jquery' ) );
-        wp_localize_script( 'secondary-image', 'featured_image_02',
-            array(
-                'title' => __( 'Choose or Upload an Image', 'vi_theme' ),
-                'button' => __( 'Use this image', 'vi_theme' ),
-            )
-        );
-        wp_enqueue_script( 'secondary-image' );
-    }
-}
-add_action( 'admin_enqueue_scripts', 'vi_theme_featured_image_02_enqueue' );
+add_action( 'add_meta_boxes', ['VI_theme_alternate_title', 'add'] );
+add_action( 'save_post', ['VI_theme_alternate_title', 'save'] );
