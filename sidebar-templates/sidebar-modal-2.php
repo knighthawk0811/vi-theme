@@ -2,7 +2,7 @@
 /**
  * Sidebar - modal.
  *
- * @package version_8
+ * @package vi_theme
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  */
 if ( ! defined( 'ABSPATH' ) ) {
