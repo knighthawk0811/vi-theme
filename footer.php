@@ -43,6 +43,8 @@
 
 
 <?php endif; //body class blank-iframe ?>
+
+<?php get_template_part( 'sidebar-templates/sidebar', 'urgent-notice-3' ); ?>
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

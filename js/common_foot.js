@@ -93,3 +93,49 @@ jQuery(document).ready(function()
 		jQuery(this).parent().siblings().removeClass( "toggle-on" );
 	});
 });
+
+
+(function ()
+{
+
+	var cookie_name = 'urgent_notice_3'; // The cookie name
+
+	var cookie_expiry = new Date(); // Cookie expiry in days
+	cookie_expiry.setTime(cookie_expiry.getTime() + ( 0.3 * 24 * 60 * 60 * 1000 ));//~ 8 hours
+
+
+	// Show the popup on load if cookie is not previously stored
+	// then store the cookie so it will remember
+	function do_this_once()
+	{
+		if ( !document.cookie.split( '; ' ).find( row => row.startsWith( cookie_name ) ) )
+		{
+			jQuery('#sidebar-urgent-notice-3').addClass('show');// notice ID
+
+			document.cookie = "" + cookie_name + "=true; expires=" + cookie_expiry + "; sameSite=Strict";
+		}
+	}
+	function show_this_thing()
+	{
+		if ( !document.cookie.split( '; ' ).find( row => row.startsWith( cookie_name ) ) )
+		{
+			jQuery('#sidebar-urgent-notice-3').addClass('show');// notice ID
+		}
+	}
+	function hide_this_thing()
+	{
+		jQuery('#sidebar-urgent-notice-3').removeClass('show');// notice ID
+		document.cookie = "" + cookie_name + "=true; expires=" + cookie_expiry + "; sameSite=Strict";
+	}
+
+	jQuery( document ).ready( function() {
+		show_this_thing();
+	});
+
+	// Modal dismiss button
+	jQuery('#sidebar-urgent-notice-3-button').on('click', function ()
+	{
+		hide_this_thing();
+	});
+
+})();

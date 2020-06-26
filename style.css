@@ -1247,6 +1247,30 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 /*--------------------------------------------------------------
 # Footer Area
 --------------------------------------------------------------*/
+
+#sidebar-urgent-notice-3 {
+	display:none;
+
+	bottom:0px;
+	left:2em;
+	position:fixed;
+	width:calc(100% - 4em);
+
+	background:#ffffff;
+
+	z-index:1080;
+}
+#sidebar-urgent-notice-3.show {
+	display:block;
+}
+#sidebar-urgent-notice-3 > section {
+	padding:1em 5em 3em 1em;
+}
+#sidebar-urgent-notice-3-button {
+	position:absolute;
+	top:1em;
+	right:1em;
+}
 /*--------------------------------------------------------------
 # Reusable Classes
 --------------------------------------------------------------*/
