@@ -235,6 +235,7 @@ $wp_customize->add_control( 'vi_theme_parallax_height_control',
 $wp_customize->add_setting( 'content_image', array(
     //default
     'validate_callback' => 'vi_theme_custom_style_changed'
+    'default' => get_template_directory_uri() . '/image/default-image.png',
 ) );
 $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_control',
    array(
@@ -248,6 +249,7 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cont
 $wp_customize->add_setting( 'content_image_002', array(
     //default
     'validate_callback' => 'vi_theme_custom_style_changed'
+    'default' => get_template_directory_uri() . '/image/default-image.png',
 ) );
 $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_002_control',
    array(
