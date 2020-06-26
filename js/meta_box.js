@@ -43,12 +43,20 @@ jQuery(document).ready(function($){
             // Sends the attachment URL to our custom image input field.
             $('#vi-secondary-image-id').val(media_attachment.id);
             $("#vi-secondary-image").attr("src",media_attachment.url);
+            $("#vi-secondary-image-button").val("Replace Image");
+            if(media_attachment)
+            {
+                $("#vi-secondary-image").removeClass("hidden");
+                $("#vi-secondary-image-id").removeClass("hidden");
+                $("#vi-secondary-image-button-remove").removeClass("hidden");
+            }
         });
 
         // Opens the media library frame.
         meta_image_frame.open();
     });
-    // Runs when the image button is clicked.
+
+    // Runs when the remove image button is clicked.
     $('#vi-secondary-image-button-remove').click(function(e){
 
         // Prevents the default action from occuring.
@@ -57,6 +65,11 @@ jQuery(document).ready(function($){
         // Sends the attachment URL to our custom image input field.
         $('#vi-secondary-image-id').val(0);
         $("#vi-secondary-image").attr("src",0);
+        $("#vi-secondary-image-button").val("Add Image");
+
+        $("#vi-secondary-image").addClass("hidden");
+        $("#vi-secondary-image-id").addClass("hidden");
+        $("#vi-secondary-image-button-remove").addClass("hidden");
 
     });
 });
