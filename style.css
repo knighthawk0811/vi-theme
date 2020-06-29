@@ -1252,19 +1252,33 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 	display:none;
 
 	bottom:0px;
-	left:2em;
+	left:0px;
 	position:fixed;
-	width:calc(100% - 4em);
+	width:100%;
 
-	background:#ffffff;
+	background:none;
 
 	z-index:1080;
 }
 #sidebar-urgent-notice-3.show {
 	display:block;
 }
+#sidebar-urgent-notice-3-bg {
+	display:block;
+
+	bottom:0px;
+	left:0px;
+	position:absolute;
+	right:0px;
+	top:0px;
+
+	background:#ffffff;
+
+	opacity:0.8;
+}
 #sidebar-urgent-notice-3 > section {
 	padding:1em 5em 3em 1em;
+	position:relative;
 }
 #sidebar-urgent-notice-3-button {
 	position:absolute;
@@ -1482,7 +1496,7 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.5);
 
 	opacity:0.5;
-	z-index:9999;
+	z-index:1080;
 }
 .entry-footer .edit-link:hover {
 	opacity:1;

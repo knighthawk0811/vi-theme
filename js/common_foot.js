@@ -98,7 +98,7 @@ jQuery(document).ready(function()
 (function ()
 {
 
-	var cookie_name = 'urgent_notice_3'; // The cookie name
+	var cookie_name = 'cookie_consent'; // The cookie name
 
 	var cookie_expiry = new Date(); // Cookie expiry in days
 	cookie_expiry.setTime(cookie_expiry.getTime() + ( 0.3 * 24 * 60 * 60 * 1000 ));//~ 8 hours
