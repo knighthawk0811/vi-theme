@@ -337,7 +337,7 @@ function vi_theme_widgets_init() {
 	register_sidebar( array(
 		'name'          => esc_html__( 'Urgent Notice - 3', 'vi_theme' ),
 		'id'            => 'sidebar-urgent-notice-3',
-		'description'   => esc_html__( 'auto pop-up at the very bottom of the page.', 'vi_theme' ),
+		'description'   => esc_html__( 'Auto pop-up at the very bottom of the page. Keep it short or it will cover the page.', 'vi_theme' ),
 		'before_widget' => '<section class="widget %1$s %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<div class="widget-title">',
