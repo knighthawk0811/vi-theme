@@ -41,6 +41,12 @@ function vi_theme_body_classes( $classes = null ) {
 		$classes[] = 'hfeed';
 	}
 
+	// Adds a class of blog-id for multisite
+	if ( is_multisite() ) {
+		$classes[] = 'blog-' . get_current_blog_id();
+		$classes[] = strtolower( sanitize_file_name( get_bloginfo('name') ) );
+	}
+
 	//add post category to classes for single posts
 	if (is_single() )
 	{
@@ -56,6 +62,8 @@ function vi_theme_body_classes( $classes = null ) {
 }
 add_filter( 'body_class', 'vi_theme_body_classes' );
 endif;
+
+
 
 /**
  * Adds dynamic classes to the array for body classes.
