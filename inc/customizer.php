@@ -20,6 +20,9 @@ $vi_theme_default_value = array(
     'content_text_color' => 'color_text_3',
     'site_logo' => '0',
     'content_image' => '0',
+    'content_image_portrait' => '0',
+    'content_image_002' => '0',
+    'content_image_002_portrait' => '0',
     'footer_bg_color' => 'color_bg_4',
     'footer_text_color' => 'color_text_4',
     'footer_image' => '0',
@@ -234,29 +237,57 @@ $wp_customize->add_control( 'vi_theme_parallax_height_control',
 
 $wp_customize->add_setting( 'content_image', array(
     //default
-    'validate_callback' => 'vi_theme_custom_style_changed'
+    'validate_callback' => 'vi_theme_custom_style_changed',
     'default' => get_template_directory_uri() . '/image/default-image.png',
 ) );
 $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_control',
    array(
-      'label' => __( 'Default Featured Image' ),
+      'label' => __( 'Default Featured Image - Landscape' ),
       'description' => esc_html__( 'Select an image to use as the default for pages with no featured image.' ),
       'section' => 'vi_theme_custom_section_default_image', // Required, core or custom.
       'settings' => 'content_image'
    )
 ) );
 
+$wp_customize->add_setting( 'content_image_portrait', array(
+    //default
+    'validate_callback' => 'vi_theme_custom_style_changed',
+    'default' => get_template_directory_uri() . '/image/default-image.png',
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_portrait_control',
+   array(
+      'label' => __( 'Default Featured Image - Portrait' ),
+      'description' => esc_html__( 'Select an image to use as the default for pages with no featured image. If empty, will default to landscape.' ),
+      'section' => 'vi_theme_custom_section_default_image', // Required, core or custom.
+      'settings' => 'content_image_portrait'
+   )
+) );
+
 $wp_customize->add_setting( 'content_image_002', array(
     //default
-    'validate_callback' => 'vi_theme_custom_style_changed'
+    'validate_callback' => 'vi_theme_custom_style_changed',
     'default' => get_template_directory_uri() . '/image/default-image.png',
 ) );
 $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_002_control',
    array(
-      'label' => __( 'Default Secondary Image' ),
+      'label' => __( 'Default Secondary Image - Landscape' ),
       'description' => esc_html__( 'Select an image to use as the default/secondary for pages with no featured image.' ),
       'section' => 'vi_theme_custom_section_default_image', // Required, core or custom.
       'settings' => 'content_image_002'
+   )
+) );
+
+$wp_customize->add_setting( 'content_image_002_portrait', array(
+    //default
+    'validate_callback' => 'vi_theme_custom_style_changed',
+    'default' => get_template_directory_uri() . '/image/default-image.png',
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_002_portrait_control',
+   array(
+      'label' => __( 'Default Secondary Image - Protrait' ),
+      'description' => esc_html__( 'Select an image to use as the default/secondary for pages with no featured image. If empty, will default to landscape.' ),
+      'section' => 'vi_theme_custom_section_default_image', // Required, core or custom.
+      'settings' => 'content_image_002_portrait'
    )
 ) );
 

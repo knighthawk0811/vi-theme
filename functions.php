@@ -479,32 +479,36 @@ function vi_featured_image_header()
     //featured image
     if( has_post_thumbnail($post->ID) ) :
         //set to thumbnail
-        $featured_image_portrait = 'background-image:url(' . get_the_post_thumbnail_url($post->ID, 'crop-portrait') . ');';
         $featured_image_landscape = 'background-image:url(' . get_the_post_thumbnail_url($post->ID, 'crop-landscape') . ');';
+        $featured_image_portrait = 'background-image:url(' . get_the_post_thumbnail_url($post->ID, 'crop-portrait') . ');';
     elseif( get_theme_mod( 'content_image', '0' ) != '0' ) :
         //set to default image
-        $featured_image_portrait = 'background-image:url(' . get_theme_mod( 'content_image' ) . ');';
-        $featured_image_landscape = $featured_image_portrait;
+        $featured_image_landscape = 'background-image:url(' . get_theme_mod( 'content_image' ) . ');';
+        $featured_image_portrait = 'background-image:url(' . get_theme_mod( 'content_image_portrait' ) . ');';
+        if( get_theme_mod( 'content_image_portrait' ) == ( get_template_directory_uri() . '/image/default-image.png' ) ):
+
+			$featured_image_portrait = $featured_image_landscape;
+        endif;
     else :
         //set to nothing
-        $featured_image_portrait = 'background-image:none;';
         $featured_image_landscape = 'background-image:none;';
+        $featured_image_portrait = 'background-image:none;';
     endif;
 
     //secondary featured image
     $secondary_image_id = get_post_meta( $post->ID, 'vi-secondary-image-id', true );
     if( $secondary_image_id > 0 ) :
         //set to secondary thumbnail
-        $secondary_image_portrait = 'background-image:url(' . wp_get_attachment_image_src($secondary_image_id, 'crop-portrait')[0] . ');';
         $secondary_image_landscape = 'background-image:url(' . wp_get_attachment_image_src($secondary_image_id, 'crop-landscape')[0] . ');';
+        $secondary_image_portrait = 'background-image:url(' . wp_get_attachment_image_src($secondary_image_id, 'crop-portrait')[0] . ');';
     elseif( get_theme_mod( 'content_image_002', '0' ) != '0' ) :
         //set to default image
-        $secondary_image_portrait = 'background-image:url(' . get_theme_mod( 'content_image_002' ). ');';
-        $secondary_image_landscape = $secondary_image_portrait;
+        $secondary_image_landscape = 'background-image:url(' . get_theme_mod( 'content_image_002' ). ');';
+        $secondary_image_portrait = 'background-image:url(' . get_theme_mod( 'content_image_002_portrait' ). ');';
     else :
         //set to the primary image
-        $secondary_image_portrait = 'background-image:none;';
         $secondary_image_landscape = 'background-image:none;';
+        $secondary_image_portrait = 'background-image:none;';
     endif;
 
     ?>
@@ -515,7 +519,7 @@ function vi_featured_image_header()
         .featured-image-footer {
             <?php echo($secondary_image_portrait); ?>
         }
-        @media only screen and (min-width: 900px) {
+        @media only screen and (min-width: 768px) {
         /*900px width and larger*/
             .featured-image-header {
                 <?php echo($featured_image_landscape); ?>
