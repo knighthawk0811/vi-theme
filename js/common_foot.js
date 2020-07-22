@@ -104,159 +104,35 @@ jQuery(document).ready(function()
  */
 (function ()
 {
-	var cookie_name = 'cookie_consent'; // The cookie name
-	var cookie_increment = 3; // number of times to incerment
+	var cookie_name = 'urgent_notice_popup'; // The cookie name
+	var cookie_increment = 2; // number of times to incerment
 
-	const time_now = Date.now();
+	//const time_now = Date.now();
 	const expiry_length = 0.04 * 24 * 60 * 60 * 1000;//~ 1 hours
-	const cookie_expiry = time_now + expiry_length; // Cookie expiry date
+	//const cookie_expiry = time_now + expiry_length; // Cookie expiry date
 
 
-	/**
-	 * test if localStorage/sessionStorage is both supported and available
-	 *
-	 * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
-	 * @version 8.3.200713
-	 * @since 8.3.200713
-	 */
-	function storage_available(type)
+	//initialize the value
+	//return the new value
+	function init_value()
 	{
-	    var storage;
-	    try
-	    {
-	        storage = window[type];
-	        var x = '__storage_test__';
-	        storage.setItem(x, x);
-	        storage.removeItem(x);
-	        return true;
-	    }
-	    catch(e)
-	    {
-	        return e instanceof DOMException && (
-	            // everything except Firefox
-	            e.code === 22 ||
-	            // Firefox
-	            e.code === 1014 ||
-	            // test name field too, because code might not be present
-	            // everything except Firefox
-	            e.name === 'QuotaExceededError' ||
-	            // Firefox
-	            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-	            // acknowledge QuotaExceededError only if there's something already stored
-	            (storage && storage.length !== 0);
-	    }
-	}
-
-	//set if it's the first time, don't override if it's already set
-	function create_expiry(input)
-	{
-		var value = cookie_expiry;
-		if ( storage_available('localStorage') )
+		//
+		var value = get_storage(cookie_name, true);
+		if ( value == null)
 		{
-			//We can use localStorage
-			var name = input + '_expiry';
-
-			if( localStorage.getItem(name) )
-			{
-				value = localStorage.getItem(name);
-			}
-			else
-			{
-				localStorage.setItem(name, value);
-
-			}
+			value = 0;
+			set_storage( cookie_name, value, expiry_length );
 		}
 		return value;
 	}
-	//check that the value isn't expired
-	//returns boolean
-	function check_expiry(input)
-	{
-		create_expiry(input);
-		var value = true;//true == not expired
-		if ( storage_available('localStorage') )
-		{
-			//We can use localStorage
-			var name = input + '_expiry';
-			if( localStorage.getItem(name) < time_now )
-			{
-				//expiry date already happened
-				value = false;
-				delete_expiry(input);
-			}
-		}
-		return value;
-	}
-	//update the expiry date
-	function update_expiry(input)
-	{
-		if ( storage_available('localStorage') )
-		{
-			//We can use localStorage
-			var name = input + '_expiry';
-			localStorage.setItem(name, cookie_expiry);
-		}
-	}
-	//force the expiry to happen
-	function delete_expiry(input)
-	{
-		if ( storage_available('localStorage') )
-		{
-			//We can use localStorage
-			var name = input + '_expiry';
-			localStorage.removeItem(name);
-			set_value(0);
-		}
-	}
-
 	//increment the value
 	//return the new value
 	function increment_value()
 	{
-		var value = get_value()
-		return set_value( ++value );
-	}
-
-	//get and return the value
-	function get_value()
-	{
-		var value = 0;
-		if ( storage_available('localStorage') )
-		{
-			//We can use localStorage
-			if( check_expiry(cookie_name) && localStorage.getItem(cookie_name) )
-			{
-				value = Number( localStorage.getItem(cookie_name) );
-			}
-		}
-		else
-		{
-			//We have to use cookies
-			if( document.cookie.split( '; ' ).find( row => row.startsWith( cookie_name ) ) )
-			{
-				value = Number( document.cookie.split('; ').find(row => row.startsWith( cookie_name )).split('=')[1] );
-			}
-		}
+		var value = init_value();
+		set_storage( cookie_name, ++value, expiry_length );
 		return value;
 	}
-	//set a new value
-	function set_value(input)
-	{
-		var value = Number( input );
-		if ( storage_available('localStorage') )
-		{
-			//We can use localStorage
-			create_expiry(cookie_name);
-			localStorage.setItem(cookie_name, value);
-		}
-		else
-		{
-			//We have to use cookies
-			document.cookie = "" + cookie_name + "=" + value + "; expires=" + cookie_expiry + "; sameSite=Strict";
-		}
-		return value;
-	}
-
 
 
 	// Show the popup on load if cookie is not previously stored
@@ -274,11 +150,13 @@ jQuery(document).ready(function()
 	function do_this_multiple_times()
 	{
 		var action = false;
-		if( get_value() < cookie_increment )
+		//init_value();
+		if( init_value() < cookie_increment )
 		{
 			action = true;
 		}
 
+		//alert(action + ', ' + init_value() + ', ' + get_storage(cookie_name, true) );//***************
 		start_the_action(action);
 	}
 	function start_the_action(action = true)
@@ -330,3 +208,169 @@ jQuery(document).ready(function()
 	});
 });
 
+
+
+/**
+ * set local storage with or without an expiration time
+ * expiry matters most when reading or deleting
+ *
+ * test if localStorage/sessionStorage is both supported and available
+ *
+ * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+ * @link https://www.sohamkamani.com/blog/javascript-localstorage-with-ttl-expiry/
+ * @version 8.3.200714
+ * @since 8.3.200714
+ */
+function storage_available( type )
+{
+	//storage_available('localStorage');// last forever, unless we are using the expiry below
+	//storage_available('sessionStorage');// last for a session
+
+    var storage;
+    try
+    {
+        storage = window[type];
+        var x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e)
+    {
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            (storage && storage.length !== 0);
+    }
+}
+
+function create_storage( key, value = true, ttl = 0 )
+{
+	//not sure how this is different than update
+	//alternative for update_storage
+	return update_storage( key, value, ttl);
+}
+
+function get_storage( key, expiry = false )
+{
+	//alternative for read_storage
+	return read_storage( key, expiry );
+}
+function read_storage( key, expiry = false )
+{
+	var value = false;
+	if ( storage_available('localStorage') )
+	{
+		//We can use localStorage
+		// delete if expired?
+		if( expiry )
+		{
+			//delete if expired
+			delete_storage(key, true);
+		}
+
+		const itemStr = localStorage.getItem(key);
+		// if the item doesn't exist, return null
+		if (!itemStr)
+		{
+			value = null;
+		}
+		else
+		{
+			const item = JSON.parse(itemStr);
+			value = item.value;
+		}
+	}
+	else
+	{
+		//We have to use cookies
+		if( document.cookie.split( '; ' ).find( row => row.startsWith( key ) ) )
+		{
+			value = document.cookie.split('; ').find(row => row.startsWith( key )).split('=')[1];
+		}
+	}
+	return value;
+}
+
+function set_storage( key, value = 0, ttl = 0)
+{
+	//alternative for update_storage
+	return update_storage( key, value, ttl);
+}
+function update_storage( key, value = 0, ttl = 0)
+{
+	var output = false;
+	//const now = new Date();
+	const time_now = Date.now();
+	var expiration = time_now + ttl;
+	if ( storage_available('localStorage') )
+	{
+		//We can use localStorage
+		output = true;
+		// `item` is an object which contains the original value
+		// as well as the time when it's supposed to expire
+		const item = {
+			value: value,
+			expiry: expiration
+		};
+		localStorage.setItem(key, JSON.stringify(item));
+	}
+	else
+	{
+		//We have to use cookies
+		document.cookie = "" + key + "=" + value + "; expires=" + expiration.toUTCString() + "; sameSite=Strict";
+	}
+	return output;
+}
+function delete_storage( key, expiry = false)
+{
+	var output = false;
+	if ( storage_available('localStorage') )
+	{
+		//We can use localStorage
+		const itemStr = localStorage.getItem(key)
+		// if the item doesn't exist, return null
+		if (itemStr)
+		{
+			const item = JSON.parse(itemStr)
+			//confirm for deletion by default
+			confirm = true;
+			//check if we care about the expiration date
+			if( expiry )
+			{
+				const now = new Date()
+				const time_now = Date.now();
+				// compare the expiry time of the item with the current time
+				//if NOT expired the unconfirm the deletion
+				if (time_now < item.expiry)
+				{
+					confirm = false;
+				}
+			}
+			if( confirm )
+			{
+				// delete the item from storage
+				localStorage.removeItem(key)
+				output = true;
+			}
+		}
+	}
+	else
+	{
+		//We have to use cookies
+		if( !expiry )
+		{
+			document.cookie = "" + key + "=false; expires=Thu, 01 Jan 1970 00:00:00 GMT; sameSite=Strict";
+
+		}
+	}
+	return output;
+}
