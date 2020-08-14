@@ -14,7 +14,10 @@
 		<?php
 			if(get_post_meta($post->ID, 'alternate_title_enabled', true) == "yes")
 			{
-				echo('<h1 class="entry-title">' . get_post_meta($post->ID, 'alternate_title', true) . '</h1>');
+				if( !empty( get_post_meta($post->ID, 'alternate_title', true) ) )
+				{
+					echo('<h1 class="entry-title">' . get_post_meta($post->ID, 'alternate_title', true) . '</h1>');
+				}
 			}
 			else
 			{

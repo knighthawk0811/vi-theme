@@ -20,7 +20,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body id="top" <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
 <?php if( !in_array( 'blank-iframe', vi_theme_body_add_class() ) ): ?>
@@ -51,7 +51,6 @@
 	<?php get_template_part( 'sidebar-templates/sidebar', 'urgent-notice-1' ); ?>
 
 	<header id="masthead" class="site-header">
-	<div class="content-container" >
 		<?php get_template_part( 'sidebar-templates/sidebar', 'header-1' ); ?>
 
 		    <?php if ( has_nav_menu( 'header-1' ) ): ?>
@@ -94,7 +93,6 @@
 		    <?php endif; ?>
 
 		<?php get_template_part( 'sidebar-templates/sidebar', 'header-2' ); ?>
-	</div><!-- .content-container -->
 	</header><!-- #masthead -->
 
 	<?php get_template_part( 'sidebar-templates/sidebar', 'urgent-notice-2' ); ?>
@@ -105,4 +103,3 @@
 <?php endif; //body class blank-iframe ?>
 
 	<div id="content" class="site-content">
-	<div class="content-container" >

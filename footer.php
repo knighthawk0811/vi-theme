@@ -11,7 +11,6 @@
 
 ?>
 
-	</div><!-- .content-container -->
     </div><!-- #content -->
 
 

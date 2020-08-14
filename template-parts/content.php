@@ -14,11 +14,14 @@
 		<?php
 			if(get_post_meta($post->ID, 'alternate_title_enabled', true) == "yes")
 			{
-				if ( is_singular() ) :
-					echo('<h1 class="entry-title">' . get_post_meta($post->ID, 'alternate_title', true) . '</h1>');
-				else :
-					echo('<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . get_post_meta($post->ID, 'alternate_title', true) . '</a></h2>' );
-				endif;
+				if( !empty( get_post_meta($post->ID, 'alternate_title', true) ) )
+				{
+					if ( is_singular() ) :
+						echo('<h1 class="entry-title">' . get_post_meta($post->ID, 'alternate_title', true) . '</h1>');
+					else :
+						echo('<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . get_post_meta($post->ID, 'alternate_title', true) . '</a></h2>' );
+					endif;
+				}
 			}
 			else
 			{
