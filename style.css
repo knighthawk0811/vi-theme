@@ -1,5 +1,5 @@
 /*!
-Theme Name: vi_theme
+Theme Name: vi_theme [parent]
 Theme URI: http://neathawk.com
 Author: Joseph Neathawk - Knighthawk0811
 Author URI: http://neathawk.com
@@ -1058,14 +1058,19 @@ body.page {
 	height:auto;
 }
 header.entry-header > *,
-.entry-content > *,
+#content .entry-content > *,
 .content-container {
+	display: block;
 	margin-left:auto;
 	margin-right:auto;
 	max-width:900px;
 }
+header.entry-header > script,
+#content .entry-content > script {
+	display: none !important;
+}
 .content-container-override {
-	max-width:100%;
+	max-width:100% !important;
 }
 /*--------------------------------------------------------------
 # General Elements
@@ -1231,7 +1236,7 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 
 
 .entry-header,
-.entry-content > * {
+article > .entry-content > * {
     padding:0 0.5rem;
 }
 
@@ -1251,6 +1256,7 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 
 	bottom:0px;
 	left:0px;
+	max-height:75vh;
 	position:fixed;
 	width:100%;
 
@@ -1275,8 +1281,11 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 	opacity:0.8;
 }
 #sidebar-urgent-notice-3 > section {
+	max-height: 75vh;
 	padding:1em 5em 3em 1em;
 	position:relative;
+
+	overflow-y: scroll;
 }
 #sidebar-urgent-notice-3-button {
 	position:absolute;
@@ -1841,7 +1850,6 @@ body.blank-iframe #colophon {
 
 /* Bootstrap lg+ | for-desktop-up */
 @media only screen and (min-width: 992px) {
-/**** DEFAULT MEDIA QUERY - 992px width and larger ****/
 
 }
 
@@ -1850,17 +1858,17 @@ body.blank-iframe #colophon {
 
 }
 
-/* Bootstrap xl+ | for-desktop-up */
+/* Bootstrap xl+ | for-large-desktop-up */
 @media only screen and (min-width: 1200px) {
 
 }
 
-/* Bootstrap xl | for-desktop-only */
+/* Bootstrap xl | for-large-desktop-only */
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
 
 }
 
-/* Bootstrap xxl+ | for-big-desktop-up */
+/* Bootstrap xxl+ | for-extar-large-desktop-up */
 @media only screen and (min-width: 1400px) {
 
 }

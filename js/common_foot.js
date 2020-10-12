@@ -95,8 +95,29 @@ jQuery(document).ready(function()
 });
 
 
+
 /**
- * autorun function to set local storage
+ * aspect-ratio 2.0
+ *
+ * @link
+ * @version 8.3.200706
+ * @since 8.3.200706
+ */
+jQuery(document).ready(function()
+{
+	jQuery(".aspect-ratio").css('background-image', function(index){
+		jQuery(this).find( 'img' ).css( "opacity", "0" );
+
+		var first_image = jQuery(this).find( 'img' ).first();
+		index = jQuery(first_image).attr( "src" );
+		return  'url(' + index + ')';
+	});
+});
+
+
+/**
+ * autorun function to show/hide urgent notice popover
+ * will set local storage
  *
  * @link https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
  * @version 8.3.200713
@@ -189,24 +210,6 @@ jQuery(document).ready(function()
 
 })();
 
-
-/**
- * aspect-ratio 2.0
- *
- * @link
- * @version 8.3.200706
- * @since 8.3.200706
- */
-jQuery(document).ready(function()
-{
-	jQuery(".aspect-ratio").css('background-image', function(index){
-		jQuery(this).find( 'img' ).css( "opacity", "0" );
-
-		var first_image = jQuery(this).find( 'img' ).first();
-		index = jQuery(first_image).attr( "src" );
-		return  'url(' + index + ')';
-	});
-});
 
 
 
