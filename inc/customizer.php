@@ -7,6 +7,9 @@
 
 
 $vi_theme_default_value = array(
+    'site_logo' => '0',
+    'content_container_width' => '900px',
+    'parallax_height' => '20rem',
     'body_bg_color' => 'color_bg_w',
     'body_text_color' => 'color_text_b',
     'modal_bg_color' => 'color_bg_1',
@@ -17,8 +20,8 @@ $vi_theme_default_value = array(
     'header_text_color' => 'color_text_2',
     'header_image' => '0',
     'content_bg_color' => 'color_bg_3',
-    'content_text_color' => 'color_text_3',
-    'site_logo' => '0',
+    'content_text_color' => 'color_text_b',
+    'content_link_color' => 'color_text_3',
     'content_image' => '0',
     'content_image_portrait' => '0',
     'content_image_002' => '0',
@@ -26,8 +29,6 @@ $vi_theme_default_value = array(
     'footer_bg_color' => 'color_bg_4',
     'footer_text_color' => 'color_text_4',
     'footer_image' => '0',
-    'content_container_width' => '900px',
-    'parallax_height' => '20rem',
     'color_bg_1' => '#eeeeee',
     'color_bg_2' => '#dddddd',
     'color_bg_3' => '#cccccc',
@@ -35,6 +36,7 @@ $vi_theme_default_value = array(
     'color_bg_b' => '#000000',
     'color_bg_w' => '#ffffff',
     'color_bg_c' => 'rgba(0,0,0,0)',
+    'color_bg_i' => 'inherit',
     'color_text_1' => '#111111',
     'color_text_2' => '#222222',
     'color_text_3' => '#333333',
@@ -42,6 +44,7 @@ $vi_theme_default_value = array(
     'color_text_b' => '#000000',
     'color_text_w' => '#ffffff',
     'color_text_c' => 'rgba(0,0,0,0)',
+    'color_text_i' => 'inherit',
     'vi_theme_test_value' => 'color_bg_1',
 );
 
@@ -213,7 +216,7 @@ $wp_customize->add_control( 'vi_theme_content_container_width_control',
 // image height for parallax layout
 $wp_customize->add_setting('parallax_height', array(
     'capability' => 'edit_theme_options',
-    'default' => $vi_theme_default_value['content_container_width'],
+    'default' => $vi_theme_default_value['parallax_height'],
     'sanitize_callback' => 'sanitize_text_field',
     'validate_callback' => 'vi_theme_custom_style_changed'
 ) );
@@ -467,7 +470,8 @@ $wp_customize->add_control( 'body_bg_color',
          'color_bg_4' => __( 'Color 4' ),
          'color_bg_b' => __( 'Color Black' ),
          'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' )
+         'color_bg_c' => __( 'Color Clear' ),
+         'color_bg_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -495,7 +499,8 @@ $wp_customize->add_control( 'body_text_color',
          'color_text_4' => __( 'Color 4' ),
          'color_text_b' => __( 'Color Black' ),
          'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' )
+         'color_text_c' => __( 'Color Clear' ),
+         'color_text_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -527,7 +532,8 @@ $wp_customize->add_control( 'modal_bg_color',
          'color_bg_4' => __( 'Color 4' ),
          'color_bg_b' => __( 'Color Black' ),
          'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' )
+         'color_bg_c' => __( 'Color Clear' ),
+         'color_bg_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -555,7 +561,8 @@ $wp_customize->add_control( 'modal_button_color',
          'color_bg_4' => __( 'Color 4' ),
          'color_bg_b' => __( 'Color Black' ),
          'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' )
+         'color_bg_c' => __( 'Color Clear' ),
+         'color_bg_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -604,7 +611,8 @@ $wp_customize->add_control( 'modal_text_color',
          'color_text_4' => __( 'Color 4' ),
          'color_text_b' => __( 'Color Black' ),
          'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' )
+         'color_text_c' => __( 'Color Clear' ),
+         'color_text_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -635,7 +643,8 @@ $wp_customize->add_control( 'header_bg_color',
          'color_bg_4' => __( 'Color 4' ),
          'color_bg_b' => __( 'Color Black' ),
          'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' )
+         'color_bg_c' => __( 'Color Clear' ),
+         'color_bg_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -677,7 +686,8 @@ $wp_customize->add_control( 'header_text_color',
          'color_text_4' => __( 'Color 4' ),
          'color_text_b' => __( 'Color Black' ),
          'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' )
+         'color_text_c' => __( 'Color Clear' ),
+         'color_text_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -705,7 +715,8 @@ $wp_customize->add_control( 'header_bs_nav_bg_color',
          'color_bg_4' => __( 'Color 4' ),
          'color_bg_b' => __( 'Color Black' ),
          'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' )
+         'color_bg_c' => __( 'Color Clear' ),
+         'color_bg_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -733,7 +744,8 @@ $wp_customize->add_control( 'header_bs_nav_text_color',
          'color_text_4' => __( 'Color 4' ),
          'color_text_b' => __( 'Color Black' ),
          'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' )
+         'color_text_c' => __( 'Color Clear' ),
+         'color_text_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -762,7 +774,8 @@ $wp_customize->add_control( 'header_wp_nav_bg_color',
          'color_bg_4' => __( 'Color 4' ),
          'color_bg_b' => __( 'Color Black' ),
          'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' )
+         'color_bg_c' => __( 'Color Clear' ),
+         'color_bg_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -790,7 +803,8 @@ $wp_customize->add_control( 'header_wp_nav_text_color',
          'color_text_4' => __( 'Color 4' ),
          'color_text_b' => __( 'Color Black' ),
          'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' )
+         'color_text_c' => __( 'Color Clear' ),
+         'color_text_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -822,7 +836,8 @@ $wp_customize->add_control( 'content_bg_color',
          'color_bg_4' => __( 'Color 4' ),
          'color_bg_b' => __( 'Color Black' ),
          'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' )
+         'color_bg_c' => __( 'Color Clear' ),
+         'color_bg_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -864,7 +879,8 @@ $wp_customize->add_control( 'content_text_color',
          'color_text_4' => __( 'Color 4' ),
          'color_text_b' => __( 'Color Black' ),
          'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' )
+         'color_text_c' => __( 'Color Clear' ),
+         'color_text_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -892,7 +908,8 @@ $wp_customize->add_control( 'content_link_color',
          'color_text_4' => __( 'Color 4' ),
          'color_text_b' => __( 'Color Black' ),
          'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' )
+         'color_text_c' => __( 'Color Clear' ),
+         'color_text_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -924,7 +941,8 @@ $wp_customize->add_control( 'footer_bg_color',
          'color_bg_4' => __( 'Color 4' ),
          'color_bg_b' => __( 'Color Black' ),
          'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' )
+         'color_bg_c' => __( 'Color Clear' ),
+         'color_bg_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -966,7 +984,8 @@ $wp_customize->add_control( 'footer_text_color',
          'color_text_4' => __( 'Color 4' ),
          'color_text_b' => __( 'Color Black' ),
          'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' )
+         'color_text_c' => __( 'Color Clear' ),
+         'color_text_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -994,7 +1013,8 @@ $wp_customize->add_control( 'footer_link_color',
          'color_text_4' => __( 'Color 4' ),
          'color_text_b' => __( 'Color Black' ),
          'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' )
+         'color_text_c' => __( 'Color Clear' ),
+         'color_text_i' => __( 'Color Inherit' )
       )
    )
 );
@@ -1115,6 +1135,7 @@ function vi_theme_get_customizer_value( $input = '' )
 		case 'color_bg_b':
 		case 'color_bg_w':
 		case 'color_bg_c':
+    case 'color_bg_i':
 		case 'color_text_1':
 		case 'color_text_2':
 		case 'color_text_3':
@@ -1122,6 +1143,7 @@ function vi_theme_get_customizer_value( $input = '' )
 		case 'color_text_b':
 		case 'color_text_w':
 		case 'color_text_c':
+    case 'color_text_i':
 			$output = vi_theme_get_customizer_value($output);
 			break;
 		default :
@@ -1163,29 +1185,28 @@ endif;
 if ( ! function_exists( 'vi_theme_customize_css' ) ) :
 function vi_theme_customize_css()
 {
-	$today = intval(date('YmdHis'));
-	$last_change = intval( get_theme_mod( 'custom_style_changed', $today ) );
-    $last_update = intval( get_theme_mod( 'custom_style_updated', $today ) );
+  $today = intval(date('YmdHis'));
+  $last_change = intval( get_theme_mod( 'custom_style_changed', $today ) );
+  $last_update = intval( get_theme_mod( 'custom_style_updated', $today ) );
 
-	//if the file doesn't exist, then force it to be reset
-	if( !file_exists( get_stylesheet_directory() . '/style_customize_' . get_current_blog_id() . '.css' ) )
-	{
-	    set_theme_mod('custom_style_changed', $today);
-        set_theme_mod('custom_style_updated', $today - 1);
-	}
+  //if the file doesn't exist, then force it to be reset
+  if( !file_exists( get_stylesheet_directory() . '/style_customize_' . get_current_blog_id() . '.css' ) )
+  {
+    set_theme_mod('custom_style_changed', $today);
+    set_theme_mod('custom_style_updated', $today - 1);
+  }
 
-    //if the last change is more recent than the last time this was updated
-	if( $last_change > $last_update)
-	{
-        //get the default output
-	    $content = vi_theme_customize_css_default();
-        $content .= vi_theme_customize_css_child_override();
-        //write it to the file
-	    file_put_contents ( get_stylesheet_directory() . '/style_customize_' . get_current_blog_id() . '.css' , $content );
-        //update the time
-        set_theme_mod( 'custom_style_updated', $today );
-
-	}
+  //if the last change is more recent than the last time this was updated
+  if( $last_change > $last_update)
+  {
+    //get the default output
+    $content = vi_theme_customize_css_default();
+    $content .= vi_theme_customize_css_child_override();
+    //write it to the file
+    file_put_contents ( get_stylesheet_directory() . '/style_customize_' . get_current_blog_id() . '.css' , $content );
+    //update the time
+    set_theme_mod( 'custom_style_updated', $today );
+  }
 }
 add_action( 'wp_head', 'vi_theme_customize_css');
 endif;
