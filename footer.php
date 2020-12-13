@@ -14,7 +14,16 @@
     </div><!-- #content -->
 
 
-<?php if( !in_array( 'blank-iframe', vi_theme_body_add_class() ) ): ?>
+<?php
+$display_footer = true;
+if( in_array( 'blank-iframe', vi_theme_body_classes() ) ){
+    $display_footer = false;
+}
+if( in_array( 'header-only', vi_theme_body_classes() ) ){
+    $display_footer = false;
+}
+
+if( $display_footer ): ?>
 
     <div class="featured-image-footer">
     </div><!-- .featured-image-footer -->
