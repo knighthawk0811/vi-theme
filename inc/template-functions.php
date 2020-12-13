@@ -18,23 +18,18 @@ if ( ! function_exists( 'vi_theme_body_classes' ) ) :
 function vi_theme_body_classes( $classes = null ) {
 
 	//must be array
-	if(!is_array( $classes ))
+	if( !is_array( $classes ) )
 	{
-		$temp = explode(' ', $classes);
-		unset($classes);
+		$temp = explode( ' ', $classes );
+		unset( $classes );
 		$classes = array();
-		foreach( $temp as $item)
+		foreach( $temp as $item )
 		{
 			$classes[] = $item;
 		}
-		unset($temp);
+		unset( $temp );
 	}
 
-	//add built up classes
-	foreach( vi_theme_body_add_class() as $item)
-	{
-		$classes[] = $item;
-	}
 
 	// Adds a class of hfeed to non-singular pages.
 	if ( ! is_singular() ) {
@@ -43,22 +38,24 @@ function vi_theme_body_classes( $classes = null ) {
 
 	// Adds a class of blog-id for multisite
 	if ( is_multisite() ) {
-		$classes[] = 'blog-' . get_current_blog_id();
+		$classes[] = get_current_blog_id();
+
 		$classes[] = strtolower( sanitize_file_name( get_bloginfo('name') ) );
 	}
 
 	//add post category to classes for single posts
-	if (is_single() )
+	if ( is_single() )
 	{
 		global $post;
-		foreach((get_the_category($post->ID)) as $category)
+		foreach( ( get_the_category( $post->ID ) ) as $category )
 		{
 			// add category slug to the $classes array
 			$classes[] = $category->category_nicename;
 		}
     }
 
-	return $classes;
+	//add built up classes and return the oucome
+	return vi_theme_body_add_class($classes) ;
 }
 add_filter( 'body_class', 'vi_theme_body_classes' );
 endif;
@@ -81,19 +78,28 @@ function vi_theme_body_add_class( $input = null ) {
 	static $vi_body_add_class_array = array();
 
 	//must be an array so we can merge them.
-	if(!is_array( $input ))
+	if( !is_array( $input ) )
 	{
-		$temp = explode(' ', $input);
-		unset($input);
-		$input = array();
-		foreach( $temp as $item)
+		//do nothing if input is already in the array
+		if( !in_array( $input, $vi_body_add_class_array ))
 		{
-			$input[] = $item;
+			$temp = explode(' ', $input);
+			unset($input);
+			$input = array();
+			foreach( $temp as $item)
+			{
+				$input[] = $item;
+			}
+			unset($temp);
 		}
-		unset($temp);
 	}
 
-	$vi_body_add_class_array = array_merge($vi_body_add_class_array, $input);
+	//only add if it's new valid input
+	if( is_array( $input ) )
+	{
+		$vi_body_add_class_array = array_merge($vi_body_add_class_array, $input);
+		$vi_body_add_class_array = array_unique($vi_body_add_class_array, SORT_STRING );
+	}
 
 	return $vi_body_add_class_array;
 }
