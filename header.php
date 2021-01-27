@@ -9,6 +9,8 @@
  * @package vi_theme
  */
 
+@session_start();
+$_SESSION['timer_start'] = microtime(true);
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -28,6 +30,7 @@ $display_header = true;
 if( in_array( 'blank-iframe', vi_theme_body_classes() ) ){
     $display_header = false;
 }
+
 if( $display_header ): ?>
 
 <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'vi_theme' ); ?></a>
@@ -52,7 +55,11 @@ if( $display_header ): ?>
 <div id="modal-button">MENU<a class="toggle-closed"><i class="fa fa-bars" aria-hidden="true"></i></a><a class="toggle-open"><i class="fa fa-times" aria-hidden="true"></i></a></div>
 
 <?php endif; //if display_header ?>
+
+
 <div id="page" class="site">
+
+
 if( $display_header ): ?>
 
 	<?php get_template_part( 'sidebar-templates/sidebar', 'urgent-notice-1' ); ?>
