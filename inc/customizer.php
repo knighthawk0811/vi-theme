@@ -1299,8 +1299,8 @@ function vi_theme_customize_css_default()
                 <?php echo( $content_bg_img . ';' ); ?>
             }
 
-            #content a,
-            #content a:visited {
+            #content a:not(.wp-block-button a),
+            #content a:not(.wp-block-button a):visited {
                 color: <?php echo vi_theme_get_customizer_value('content_link_color'); ?>;
             }
 
