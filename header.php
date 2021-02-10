@@ -27,7 +27,7 @@ $_SESSION['timer_start'] = microtime(true);
 
 <?php
 $display_header = true;
-if( in_array( 'blank-iframe', vi_theme_body_classes() ) ){
+if( in_array( 'blank-iframe', vi_theme_body_class() ) ){
     $display_header = false;
 }
 
@@ -60,7 +60,7 @@ if( $display_header ): ?>
 <div id="page" class="site">
 
 
-if( $display_header ): ?>
+<?php if( $display_header ): ?>
 
 	<?php get_template_part( 'sidebar-templates/sidebar', 'urgent-notice-1' ); ?>
 

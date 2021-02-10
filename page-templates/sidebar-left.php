@@ -8,7 +8,7 @@
  */
 
 //add class to body
-vi_theme_body_add_class( 'sidebar-1' );
+vi_theme_body_class( 'sidebar-1' );
 get_header();
 ?>
 	<div id="primary" class="content-area">

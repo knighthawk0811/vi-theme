@@ -9,7 +9,7 @@
  */
 
 //add class to body
-vi_theme_body_add_class( 'hero-double' );
+vi_theme_body_class( 'hero-double' );
 get_header();
 ?>
 	<div id="primary" class="content-area">

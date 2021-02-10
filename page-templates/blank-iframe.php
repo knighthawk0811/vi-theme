@@ -9,7 +9,7 @@
  */
 
 //add class to body
-vi_theme_body_add_class( 'blank-iframe' );
+vi_theme_body_class( 'blank-iframe' );
 get_header();
 ?>
     <div id="primary" class="content-area">

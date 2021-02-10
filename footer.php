@@ -16,10 +16,10 @@
 
 <?php
 $display_footer = true;
-if( in_array( 'blank-iframe', vi_theme_body_classes() ) ){
+if( in_array( 'blank-iframe', vi_theme_body_class() ) ){
     $display_footer = false;
 }
-if( in_array( 'header-only', vi_theme_body_classes() ) ){
+if( in_array( 'header-only', vi_theme_body_class() ) ){
     $display_footer = false;
 }
 

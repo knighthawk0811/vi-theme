@@ -9,7 +9,7 @@
  */
 
 //add class to body
-vi_theme_body_add_class( 'sidebar-none' );
+vi_theme_body_class( 'sidebar-none' );
 get_header();
 ?>
 	<div id="primary" class="content-area">
