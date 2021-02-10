@@ -7,45 +7,22 @@
 
 
 $vi_theme_default_value = array(
-    'site_logo' => '0',
     'content_container_width' => '900px',
     'parallax_height' => '20rem',
-    'body_bg_color' => 'color_bg_w',
-    'body_text_color' => 'color_text_b',
-    'modal_bg_color' => 'color_bg_1',
-    'modal_button_color' => 'color_bg_1',
-    'modal_text_color' => 'color_text_1',
-    'modal_background_trans' => '75',
-    'header_bg_color' => 'color_bg_2',
-    'header_text_color' => 'color_text_2',
-    'header_image' => '0',
-    'content_bg_color' => 'color_bg_3',
-    'content_text_color' => 'color_text_b',
-    'content_link_color' => 'color_text_3',
+    'content_bg_color' => '#ffffff',
+    'content_bg_color_trans' => '100',
+    'content_text_color' => '#000000',
+    'content_link_color' => '#0000ff',
     'content_image' => '0',
     'content_image_portrait' => '0',
+    'content_image_trans' => '100',
     'content_image_002' => '0',
     'content_image_002_portrait' => '0',
-    'footer_bg_color' => 'color_bg_4',
-    'footer_text_color' => 'color_text_4',
-    'footer_image' => '0',
-    'color_bg_1' => '#eeeeee',
-    'color_bg_2' => '#dddddd',
-    'color_bg_3' => '#cccccc',
-    'color_bg_4' => '#bbbbbb',
-    'color_bg_b' => '#000000',
-    'color_bg_w' => '#ffffff',
-    'color_bg_c' => 'rgba(0,0,0,0)',
-    'color_bg_i' => 'inherit',
-    'color_text_1' => '#111111',
-    'color_text_2' => '#222222',
-    'color_text_3' => '#333333',
-    'color_text_4' => '#444444',
-    'color_text_b' => '#000000',
-    'color_text_w' => '#ffffff',
-    'color_text_c' => 'rgba(0,0,0,0)',
-    'color_text_i' => 'inherit',
-    'vi_theme_test_value' => 'color_bg_1',
+    'content_image_002_trans' => '100',
+    'nav_001_type' => 'bs',
+    'nav_001_image' => '0',
+    'nav_002_type' => 'bs',
+    'nav_002_image' => '0',
 );
 
 /**
@@ -87,7 +64,7 @@ function vi_theme_customize_register( $wp_customize ) {
 
 	$wp_customize->add_section( 'vi_theme_custom_section_general', array(
 		'title' => __('General Settings' ),
-		'description' => __( 'Set your Logo here.' ),
+		'description' => __( 'Global Settings.' ),
 		'priority' => 160,
 		'capability' => 'edit_theme_options',
 		'panel' => 'vi_theme_custom_panel',
@@ -101,33 +78,9 @@ function vi_theme_customize_register( $wp_customize ) {
         'panel' => 'vi_theme_custom_panel',
     ) );
 
-	$wp_customize->add_section( 'vi_theme_custom_section_color_chooser', array(
-		'title' => __('Color Chooser' ),
-		'description' => __( 'Select your custom colors here.' ),
-		'priority' => 160,
-		'capability' => 'edit_theme_options',
-		'panel' => 'vi_theme_custom_panel',
-	) );
-
-	$wp_customize->add_section( 'vi_theme_custom_section_body', array(
-		'title' => __('Body Settings' ),
-		'description' => __( 'Settings for the Main page here.' ),
-		'priority' => 160,
-		'capability' => 'edit_theme_options',
-		'panel' => 'vi_theme_custom_panel',
-	) );
-
-    $wp_customize->add_section( 'vi_theme_custom_section_modal', array(
-        'title' => __('Modal Settings' ),
-        'description' => __( 'Settings for the Modal here.' ),
-        'priority' => 160,
-        'capability' => 'edit_theme_options',
-        'panel' => 'vi_theme_custom_panel',
-    ) );
-
-	$wp_customize->add_section( 'vi_theme_custom_section_header', array(
-		'title' => __('Header Settings' ),
-		'description' => __( 'Settings for the Modal here.' ),
+	$wp_customize->add_section( 'vi_theme_custom_section_nav_setting', array(
+		'title' => __('Navigation Settings' ),
+		'description' => __( 'Select your NavBar options here.' ),
 		'priority' => 160,
 		'capability' => 'edit_theme_options',
 		'panel' => 'vi_theme_custom_panel',
@@ -141,14 +94,6 @@ function vi_theme_customize_register( $wp_customize ) {
 		'panel' => 'vi_theme_custom_panel',
 	) );
 
-	$wp_customize->add_section( 'vi_theme_custom_section_footer', array(
-		'title' => __('Footer Settings' ),
-		'description' => __( 'Settings for the Modal here.' ),
-		'priority' => 160,
-		'capability' => 'edit_theme_options',
-		'panel' => 'vi_theme_custom_panel',
-	) );
-
 
 
 
@@ -156,42 +101,6 @@ function vi_theme_customize_register( $wp_customize ) {
 # general
 --------------------------------------------------------------*/
 
-
-$wp_customize->add_setting( 'site_logo', array(
-    //default
-    'validate_callback' => 'vi_theme_custom_style_changed'
-) );
-$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'site_logo_control',
-   array(
-      'label' => __( 'Site Logo' ),
-      'description' => esc_html__( 'Select an image to use as the Logo in the header of your site.' ),
-      'section' => 'vi_theme_custom_section_general', // Required, core or custom.
-      'settings' => 'site_logo'
-   )
-) );
-
-$wp_customize->add_setting( 'site_logo_navigation',
-    array(
-        'default' => 'true',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'site_logo_navigation',
-   array(
-      'label' => __( 'Logo In Navigation?' ),
-      'description' => esc_html__( 'Will the logo appear in the Bootstrap Navigation bar?' ),
-      'section' => 'vi_theme_custom_section_general',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'true' => __( 'Yes' ),
-         'false' => __( 'No' )
-      )
-   )
-);
 
 // content width for parallax layout
 $wp_customize->add_setting('content_container_width', array(
@@ -309,278 +218,138 @@ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'back
 ) );
 
 /*--------------------------------------------------------------
-# Colors
+# NavBar
+--------------------------------------------------------------*/
+
+//nav_001
+$wp_customize->add_setting( 'nav_001_type',
+    array(
+        'default' => 'bs',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'nav_001_type',
+   array(
+      'label' => __( 'Nav1 Type' ),
+      'description' => esc_html__( 'Choose what type of navbar Nav1 will be' ),
+      'section' => 'vi_theme_custom_section_nav_setting',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'bs' => __( 'Bootstrap Style' ),
+         'wp' => __( 'WordPress Style' )
+      )
+   )
+);
+
+$wp_customize->add_setting( 'nav_001_image',
+    array(
+        'default' => 'true',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'nav_001_image',
+   array(
+      'label' => __( 'Logo In Nav1?' ),
+      'description' => esc_html__( 'Will the logo appear in the Nav1 Navigation bar?' ),
+      'section' => 'vi_theme_custom_section_nav_setting',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'true' => __( 'Yes' ),
+         'false' => __( 'No' )
+      )
+   )
+);
+
+//nav_002
+$wp_customize->add_setting( 'nav_002_type',
+    array(
+        'default' => 'bs',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'nav_002_type',
+   array(
+      'label' => __( 'Nav2 Type' ),
+      'description' => esc_html__( 'Choose what type of navbar Nav1 will be' ),
+      'section' => 'vi_theme_custom_section_nav_setting',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'bs' => __( 'Bootstrap Style' ),
+         'wp' => __( 'WordPress Style' )
+      )
+   )
+);
+
+$wp_customize->add_setting( 'nav_002_image',
+    array(
+        'default' => 'true',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'nav_002_image',
+   array(
+      'label' => __( 'Logo In Nav2?' ),
+      'description' => esc_html__( 'Will the logo appear in the Nav2 Navigation bar?' ),
+      'section' => 'vi_theme_custom_section_nav_setting',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'true' => __( 'Yes' ),
+         'false' => __( 'No' )
+      )
+   )
+);
+
+
+
+/*--------------------------------------------------------------
+# Content
 --------------------------------------------------------------*/
 
 /* background */
-	$wp_customize->add_setting('color_bg_1', array(
-		'capability' => 'edit_theme_options',
-		'default' => $vi_theme_default_value['color_bg_1'],
-		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-	) );
-	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_bg_1_control',
-		array(
-			'priority' => 10, // Within the section.
-			'label' => __( 'Background Color 1' ),
-			'description' => __( 'One of four background color choices' ),
-			'section' => 'vi_theme_custom_section_color_chooser', // Required, core or custom.
-			'settings' => 'color_bg_1'
-		)
-	) );
-
-	$wp_customize->add_setting('color_bg_2', array(
-		'capability' => 'edit_theme_options',
-		'default' => $vi_theme_default_value['color_bg_2'],
-		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-	) );
-	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_bg_2_control',
-		array(
-			'priority' => 10, // Within the section.
-			'label' => __( 'Background Color 2' ),
-			'description' => __( 'One of four background color choices' ),
-			'section' => 'vi_theme_custom_section_color_chooser', // Required, core or custom.
-			'settings' => 'color_bg_2'
-		)
-	) );
-
-	$wp_customize->add_setting('color_bg_3', array(
-		'capability' => 'edit_theme_options',
-		'default' => $vi_theme_default_value['color_bg_3'],
-		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-	) );
-	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_bg_3_control',
-		array(
-			'priority' => 10, // Within the section.
-			'label' => __( 'Background Color 3' ),
-			'description' => __( 'One of four background color choices' ),
-			'section' => 'vi_theme_custom_section_color_chooser', // Required, core or custom.
-			'settings' => 'color_bg_3'
-		)
-	) );
-
-	$wp_customize->add_setting('color_bg_4', array(
-		'capability' => 'edit_theme_options',
-		'default' => $vi_theme_default_value['color_bg_4'],
-		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-	) );
-	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_bg_4_control',
-		array(
-			'priority' => 10, // Within the section.
-			'label' => __( 'Background Color 4' ),
-			'description' => __( 'One of four background color choices' ),
-			'section' => 'vi_theme_custom_section_color_chooser', // Required, core or custom.
-			'settings' => 'color_bg_4'
-		)
-	) );
-
-
-/* text */
-	$wp_customize->add_setting('color_text_1', array(
-		'capability' => 'edit_theme_options',
-		'default' => $vi_theme_default_value['color_text_1'],
-		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-	) );
-	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_text_1_control',
-		array(
-			'priority' => 10, // Within the section.
-			'label' => __( 'Text Color 1' ),
-			'description' => __( 'One of four text color choices' ),
-			'section' => 'vi_theme_custom_section_color_chooser', // Required, core or custom.
-			'settings' => 'color_text_1'
-		)
-	) );
-
-	$wp_customize->add_setting('color_text_2', array(
-		'capability' => 'edit_theme_options',
-		'default' => $vi_theme_default_value['color_text_2'],
-		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-	) );
-	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_text_2_control',
-		array(
-			'priority' => 10, // Within the section.
-			'label' => __( 'Text Color 2' ),
-			'description' => __( 'One of four text color choices' ),
-			'section' => 'vi_theme_custom_section_color_chooser', // Required, core or custom.
-			'settings' => 'color_text_2'
-		)
-	) );
-
-	$wp_customize->add_setting('color_text_3', array(
-		'capability' => 'edit_theme_options',
-		'default' => $vi_theme_default_value['color_text_3'],
-		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-	) );
-	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_text_3_control',
-		array(
-			'priority' => 10, // Within the section.
-			'label' => __( 'Text Color 3' ),
-			'description' => __( 'One of four text color choices' ),
-			'section' => 'vi_theme_custom_section_color_chooser', // Required, core or custom.
-			'settings' => 'color_text_3'
-		)
-	) );
-
-	$wp_customize->add_setting('color_text_4', array(
-		'capability' => 'edit_theme_options',
-		'default' => $vi_theme_default_value['color_text_4'],
-		'sanitize_callback' => 'sanitize_hex_color',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-	) );
-	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'color_text_4_control',
-		array(
-			'priority' => 10, // Within the section.
-			'label' => __( 'Text Color 4' ),
-			'description' => __( 'One of four text color choices' ),
-			'section' => 'vi_theme_custom_section_color_chooser', // Required, core or custom.
-			'settings' => 'color_text_4'
-		)
-	) );
-
-
-/*--------------------------------------------------------------
-# Body
---------------------------------------------------------------*/
-$wp_customize->add_setting( 'body_bg_color',
-    array(
-        'default' => 'color_bg_w',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'body_bg_color',
-   array(
-      'label' => __( 'Body Background Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
-      'section' => 'vi_theme_custom_section_body',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_bg_1' => __( 'Color 1' ),
-         'color_bg_2' => __( 'Color 2' ),
-         'color_bg_3' => __( 'Color 3' ),
-         'color_bg_4' => __( 'Color 4' ),
-         'color_bg_b' => __( 'Color Black' ),
-         'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' ),
-         'color_bg_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-$wp_customize->add_setting( 'body_text_color',
-    array(
-        'default' => 'color_text_b',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'body_text_color',
-   array(
-      'label' => __( 'Body Text Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
-      'section' => 'vi_theme_custom_section_body',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_text_1' => __( 'Color 1' ),
-         'color_text_2' => __( 'Color 2' ),
-         'color_text_3' => __( 'Color 3' ),
-         'color_text_4' => __( 'Color 4' ),
-         'color_text_b' => __( 'Color Black' ),
-         'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' ),
-         'color_text_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-
-/*--------------------------------------------------------------
-# Modal
---------------------------------------------------------------*/
-$wp_customize->add_setting( 'modal_bg_color',
-    array(
-        'default' => 'color_bg_4',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'modal_bg_color',
-   array(
-      'label' => __( 'Modal Background Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
-      'section' => 'vi_theme_custom_section_modal',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_bg_1' => __( 'Color 1' ),
-         'color_bg_2' => __( 'Color 2' ),
-         'color_bg_3' => __( 'Color 3' ),
-         'color_bg_4' => __( 'Color 4' ),
-         'color_bg_b' => __( 'Color Black' ),
-         'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' ),
-         'color_bg_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-$wp_customize->add_setting( 'modal_button_color',
-    array(
-        'default' => 'color_bg_4',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'modal_button_color',
-   array(
-      'label' => __( 'Modal Button Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
-      'section' => 'vi_theme_custom_section_modal',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_bg_1' => __( 'Color 1' ),
-         'color_bg_2' => __( 'Color 2' ),
-         'color_bg_3' => __( 'Color 3' ),
-         'color_bg_4' => __( 'Color 4' ),
-         'color_bg_b' => __( 'Color Black' ),
-         'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' ),
-         'color_bg_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-//modal background transparency
-$wp_customize->add_setting('modal_background_trans', array(
+  $wp_customize->add_setting('content_bg_color', array(
     'capability' => 'edit_theme_options',
-    'default' => $vi_theme_theme_default_value['modal_background_trans'],
+    'default' => $vi_theme_default_value['content_bg_color'],
+    'sanitize_callback' => 'sanitize_hex_color',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+  ) );
+  $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'content_bg_color_control',
+    array(
+      'priority' => 10, // Within the section.
+      'label' => __( 'Background Color' ),
+      'description' => __( 'Primary Background Color of the website' ),
+      'section' => 'vi_theme_custom_section_content', // Required, core or custom.
+      'settings' => 'content_bg_color'
+    )
+  ) );
+$wp_customize->add_setting('content_bg_color_trans', array(
+    'capability' => 'edit_theme_options',
+    'default' => $vi_theme_theme_default_value['content_bg_color_trans'],
     'validate_callback' => 'vi_theme_custom_style_changed'
 ) );
-$wp_customize->add_control( 'modal_background_trans_control',
+$wp_customize->add_control( 'content_bg_color_trans_control',
     array(
         'type' => 'range',
         'priority' => 10, // Within the section.
-        'label' => __( 'Modal Background Transparency' ),
-        'description' => __( 'The Transparency of the modal area.' ),
-        'section' => 'vi_theme_custom_section_modal', // Required, core or custom.
-        'settings' => 'modal_background_trans',
+        'label' => __( 'Backgorund Transparency' ),
+        'description' => __( 'Is the background transparent?' ),
+        'section' => 'vi_theme_custom_section_content', // Required, core or custom.
+        'settings' => 'content_bg_color_trans',
         'input_attrs' => array(
             'min' => 0,
             'max' => 100,
@@ -588,461 +357,140 @@ $wp_customize->add_control( 'modal_background_trans_control',
     )
 );
 
-$wp_customize->add_setting( 'modal_text_color',
-    array(
-        'default' => 'color_text_b',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
+/* text */
+  $wp_customize->add_setting('content_text_color', array(
+    'capability' => 'edit_theme_options',
+    'default' => $vi_theme_default_value['content_text_color'],
+    'sanitize_callback' => 'sanitize_hex_color',
         'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'modal_text_color',
-   array(
-      'label' => __( 'Modal Text Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
-      'section' => 'vi_theme_custom_section_modal',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_text_1' => __( 'Color 1' ),
-         'color_text_2' => __( 'Color 2' ),
-         'color_text_3' => __( 'Color 3' ),
-         'color_text_4' => __( 'Color 4' ),
-         'color_text_b' => __( 'Color Black' ),
-         'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' ),
-         'color_text_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-/*--------------------------------------------------------------
-# Header
---------------------------------------------------------------*/
-$wp_customize->add_setting( 'header_bg_color',
-array(
-    'default' => 'color_bg_3',
-    'transport' => 'refresh',
-    'sanitize_callback' => 'vi_theme_sanitize_radio',
-    'validate_callback' => 'vi_theme_custom_style_changed'
-)
-);
-$wp_customize->add_control( 'header_bg_color',
-   array(
-      'label' => __( 'Header Background Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
-      'section' => 'vi_theme_custom_section_header',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_bg_1' => __( 'Color 1' ),
-         'color_bg_2' => __( 'Color 2' ),
-         'color_bg_3' => __( 'Color 3' ),
-         'color_bg_4' => __( 'Color 4' ),
-         'color_bg_b' => __( 'Color Black' ),
-         'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' ),
-         'color_bg_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-//header image
-$wp_customize->add_setting( 'header_bg_image', array(
-    //default
-    'validate_callback' => 'vi_theme_custom_style_changed'
-) );
-$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'header_bg_image_control',
-   array(
-      'label' => __( 'Header Background Image' ),
-      'description' => esc_html__( 'Select an image to use as the header background.' ),
-	  'section' => 'vi_theme_custom_section_header', // Required, core or custom.
-	  'settings' => 'header_bg_image'
-   )
-) );
-
-$wp_customize->add_setting( 'header_text_color',
+  ) );
+  $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'content_text_color_control',
     array(
-        'default' => 'color_text_b',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
+      'priority' => 10, // Within the section.
+      'label' => __( 'Text Color' ),
+      'description' => __( 'Primary Text Color of the website' ),
+      'section' => 'vi_theme_custom_section_content', // Required, core or custom.
+      'settings' => 'content_text_color'
     )
-);
-$wp_customize->add_control( 'header_text_color',
-   array(
-      'label' => __( 'Header Text Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
-      'section' => 'vi_theme_custom_section_header',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_text_1' => __( 'Color 1' ),
-         'color_text_2' => __( 'Color 2' ),
-         'color_text_3' => __( 'Color 3' ),
-         'color_text_4' => __( 'Color 4' ),
-         'color_text_b' => __( 'Color Black' ),
-         'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' ),
-         'color_text_i' => __( 'Color Inherit' )
-      )
-   )
-);
+  ) );
 
-$wp_customize->add_setting( 'header_bs_nav_bg_color',
-array(
-    'default' => 'color_bg_3',
-    'transport' => 'refresh',
-    'sanitize_callback' => 'vi_theme_sanitize_radio',
-    'validate_callback' => 'vi_theme_custom_style_changed'
-)
-);
-$wp_customize->add_control( 'header_bs_nav_bg_color',
-   array(
-      'label' => __( 'Header BS Navigation Background Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
-      'section' => 'vi_theme_custom_section_header',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_bg_1' => __( 'Color 1' ),
-         'color_bg_2' => __( 'Color 2' ),
-         'color_bg_3' => __( 'Color 3' ),
-         'color_bg_4' => __( 'Color 4' ),
-         'color_bg_b' => __( 'Color Black' ),
-         'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' ),
-         'color_bg_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-$wp_customize->add_setting( 'header_bs_nav_text_color',
+/* link */
+  $wp_customize->add_setting('content_link_color', array(
+    'capability' => 'edit_theme_options',
+    'default' => $vi_theme_default_value['content_link_color'],
+    'sanitize_callback' => 'sanitize_hex_color',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+  ) );
+  $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize,  'content_link_color_control',
     array(
-        'default' => 'color_text_b',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
+      'priority' => 10, // Within the section.
+      'label' => __( 'Link Color' ),
+      'description' => __( 'Primary Link Color of the website' ),
+      'section' => 'vi_theme_custom_section_content', // Required, core or custom.
+      'settings' => 'content_link_color'
     )
-);
-$wp_customize->add_control( 'header_bs_nav_text_color',
-   array(
-      'label' => __( 'Header BS Navigation Text Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
-      'section' => 'vi_theme_custom_section_header',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_text_1' => __( 'Color 1' ),
-         'color_text_2' => __( 'Color 2' ),
-         'color_text_3' => __( 'Color 3' ),
-         'color_text_4' => __( 'Color 4' ),
-         'color_text_b' => __( 'Color Black' ),
-         'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' ),
-         'color_text_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-
-$wp_customize->add_setting( 'header_wp_nav_bg_color',
-array(
-    'default' => 'color_bg_3',
-    'transport' => 'refresh',
-    'sanitize_callback' => 'vi_theme_sanitize_radio',
-    'validate_callback' => 'vi_theme_custom_style_changed'
-)
-);
-$wp_customize->add_control( 'header_wp_nav_bg_color',
-   array(
-      'label' => __( 'Header WP Navigation Background Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
-      'section' => 'vi_theme_custom_section_header',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_bg_1' => __( 'Color 1' ),
-         'color_bg_2' => __( 'Color 2' ),
-         'color_bg_3' => __( 'Color 3' ),
-         'color_bg_4' => __( 'Color 4' ),
-         'color_bg_b' => __( 'Color Black' ),
-         'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' ),
-         'color_bg_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-$wp_customize->add_setting( 'header_wp_nav_text_color',
-    array(
-        'default' => 'color_text_b',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'header_wp_nav_text_color',
-   array(
-      'label' => __( 'Header WP Navigation Text Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
-      'section' => 'vi_theme_custom_section_header',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_text_1' => __( 'Color 1' ),
-         'color_text_2' => __( 'Color 2' ),
-         'color_text_3' => __( 'Color 3' ),
-         'color_text_4' => __( 'Color 4' ),
-         'color_text_b' => __( 'Color Black' ),
-         'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' ),
-         'color_text_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-
-/*--------------------------------------------------------------
-# Content
---------------------------------------------------------------*/
-$wp_customize->add_setting( 'content_bg_color',
-    array(
-        'default' => 'color_bg_1',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'content_bg_color',
-   array(
-      'label' => __( 'Content Background Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
-      'section' => 'vi_theme_custom_section_content',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_bg_1' => __( 'Color 1' ),
-         'color_bg_2' => __( 'Color 2' ),
-         'color_bg_3' => __( 'Color 3' ),
-         'color_bg_4' => __( 'Color 4' ),
-         'color_bg_b' => __( 'Color Black' ),
-         'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' ),
-         'color_bg_i' => __( 'Color Inherit' )
-      )
-   )
-);
+  ) );
 
 //content image
-$wp_customize->add_setting( 'content_bg_image', array(
+$wp_customize->add_setting( 'content_image_001', array(
     //default
+    'validate_callback' => 'vi_theme_custom_style_changed',
+    'default' => get_template_directory_uri() . '/image/default-image.png',
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_001_control',
+   array(
+      'label' => __( 'Default Primary Image - Landscape' ),
+      'description' => esc_html__( 'Select an image to use as the default/primary for pages with no featured image.' ),
+      'section' => 'vi_theme_custom_section_content', // Required, core or custom.
+      'settings' => 'content_image_002'
+   )
+) );
+
+$wp_customize->add_setting( 'content_image_001_portrait', array(
+    //default
+    'validate_callback' => 'vi_theme_custom_style_changed',
+    'default' => get_template_directory_uri() . '/image/default-image.png',
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_001_portrait_control',
+   array(
+      'label' => __( 'Default Primary Image - Protrait' ),
+      'description' => esc_html__( 'Select an image to use as the default/primary for pages with no featured image. If empty, will default to landscape.' ),
+      'section' => 'vi_theme_custom_section_content', // Required, core or custom.
+      'settings' => 'content_image_001_portrait'
+   )
+) );
+$wp_customize->add_setting('content_image_001_trans', array(
+    'capability' => 'edit_theme_options',
+    'default' => $vi_theme_theme_default_value['content_image_002_trans'],
     'validate_callback' => 'vi_theme_custom_style_changed'
 ) );
-$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_bg_image_control',
+$wp_customize->add_control( 'content_image_001_trans_control',
+    array(
+        'type' => 'range',
+        'priority' => 10, // Within the section.
+        'label' => __( 'Default Primary Image - Transparency' ),
+        'description' => __( 'The Transparency of the image.' ),
+        'section' => 'vi_theme_custom_section_content', // Required, core or custom.
+        'settings' => 'content_image_001_trans',
+        'input_attrs' => array(
+            'min' => 0,
+            'max' => 100,
+            'step' => 1,)
+    )
+);
+
+
+$wp_customize->add_setting( 'content_image_002', array(
+    //default
+    'validate_callback' => 'vi_theme_custom_style_changed',
+    'default' => get_template_directory_uri() . '/image/default-image.png',
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_002_control',
    array(
-      'label' => __( 'Content Background Image' ),
-      'description' => esc_html__( 'Select an image to use as the content background.' ),
-	  'section' => 'vi_theme_custom_section_content', // Required, core or custom.
-	  'settings' => 'header_bg_image'
+      'label' => __( 'Default Secondary Image - Landscape' ),
+      'description' => esc_html__( 'Select an image to use as the default/secondary for pages with no featured image.' ),
+      'section' => 'vi_theme_custom_section_content', // Required, core or custom.
+      'settings' => 'content_image_002'
    )
 ) );
 
-$wp_customize->add_setting( 'content_text_color',
-    array(
-        'default' => 'color_text_b',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'content_text_color',
-   array(
-      'label' => __( 'Content Text Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
-      'section' => 'vi_theme_custom_section_content',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_text_1' => __( 'Color 1' ),
-         'color_text_2' => __( 'Color 2' ),
-         'color_text_3' => __( 'Color 3' ),
-         'color_text_4' => __( 'Color 4' ),
-         'color_text_b' => __( 'Color Black' ),
-         'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' ),
-         'color_text_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-$wp_customize->add_setting( 'content_link_color',
-    array(
-        'default' => 'color_text_b',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'content_link_color',
-   array(
-      'label' => __( 'Content Link Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
-      'section' => 'vi_theme_custom_section_content',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_text_1' => __( 'Color 1' ),
-         'color_text_2' => __( 'Color 2' ),
-         'color_text_3' => __( 'Color 3' ),
-         'color_text_4' => __( 'Color 4' ),
-         'color_text_b' => __( 'Color Black' ),
-         'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' ),
-         'color_text_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-$wp_customize->add_setting( 'footer_bg_color',
-    array(
-        'default' => 'color_bg_2',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'footer_bg_color',
-   array(
-      'label' => __( 'Footer Background Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected background colors' ),
-      'section' => 'vi_theme_custom_section_footer',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_bg_1' => __( 'Color 1' ),
-         'color_bg_2' => __( 'Color 2' ),
-         'color_bg_3' => __( 'Color 3' ),
-         'color_bg_4' => __( 'Color 4' ),
-         'color_bg_b' => __( 'Color Black' ),
-         'color_bg_w' => __( 'Color White' ),
-         'color_bg_c' => __( 'Color Clear' ),
-         'color_bg_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-//footer image
-$wp_customize->add_setting( 'footer_bg_image', array(
+$wp_customize->add_setting( 'content_image_002_portrait', array(
     //default
+    'validate_callback' => 'vi_theme_custom_style_changed',
+    'default' => get_template_directory_uri() . '/image/default-image.png',
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'content_image_002_portrait_control',
+   array(
+      'label' => __( 'Default Secondary Image - Protrait' ),
+      'description' => esc_html__( 'Select an image to use as the default/secondary for pages with no featured image. If empty, will default to landscape.' ),
+      'section' => 'vi_theme_custom_section_content', // Required, core or custom.
+      'settings' => 'content_image_002_portrait'
+   )
+) );
+$wp_customize->add_setting('content_image_002_trans', array(
+    'capability' => 'edit_theme_options',
+    'default' => $vi_theme_theme_default_value['content_image_002_trans'],
     'validate_callback' => 'vi_theme_custom_style_changed'
 ) );
-$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'footer_bg_image_control',
-   array(
-      'label' => __( 'Footer Background Image' ),
-      'description' => esc_html__( 'Select an image to use as the footer background.' ),
-	  'section' => 'vi_theme_custom_section_footer', // Required, core or custom.
-	  'settings' => 'header_bg_image'
-   )
-) );
-
-$wp_customize->add_setting( 'footer_text_color',
+$wp_customize->add_control( 'content_image_002_trans_control',
     array(
-        'default' => 'color_text_b',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
+        'type' => 'range',
+        'priority' => 10, // Within the section.
+        'label' => __( 'Default Secondary Image - Transparency' ),
+        'description' => __( 'The Transparency of the image.' ),
+        'section' => 'vi_theme_custom_section_content', // Required, core or custom.
+        'settings' => 'content_image_002_trans',
+        'input_attrs' => array(
+            'min' => 0,
+            'max' => 100,
+            'step' => 1,)
     )
 );
-$wp_customize->add_control( 'footer_text_color',
-   array(
-      'label' => __( 'Footer Text Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
-      'section' => 'vi_theme_custom_section_footer',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_text_1' => __( 'Color 1' ),
-         'color_text_2' => __( 'Color 2' ),
-         'color_text_3' => __( 'Color 3' ),
-         'color_text_4' => __( 'Color 4' ),
-         'color_text_b' => __( 'Color Black' ),
-         'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' ),
-         'color_text_i' => __( 'Color Inherit' )
-      )
-   )
-);
-
-$wp_customize->add_setting( 'footer_link_color',
-    array(
-        'default' => 'color_text_b',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'footer_link_color',
-   array(
-      'label' => __( 'Footer Link Color' ),
-      'description' => esc_html__( 'Choose from your 4 pre-selected text colors' ),
-      'section' => 'vi_theme_custom_section_footer',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'color_text_1' => __( 'Color 1' ),
-         'color_text_2' => __( 'Color 2' ),
-         'color_text_3' => __( 'Color 3' ),
-         'color_text_4' => __( 'Color 4' ),
-         'color_text_b' => __( 'Color Black' ),
-         'color_text_w' => __( 'Color White' ),
-         'color_text_c' => __( 'Color Clear' ),
-         'color_text_i' => __( 'Color Inherit' )
-      )
-   )
-);
 
 
-/*--------------------------------------------------------------
-# test
---------------------------------------------------------------*/
 
-	$wp_customize->add_setting('vi_theme_test_value', array(
-		'capability' => 'edit_theme_options',
-		'default' => vi_theme_get_customizer_value('header_bg_color'),
-      	'sanitize_callback' => 'sanitize_text_field',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-	) );
-	$wp_customize->add_control( 'vi_theme_test_value_control',
-		array(
-      		'type' => 'text', // Can be either text, email, url, number, hidden, or date
-			'priority' => 10, // Within the section.
-			'label' => __( 'test value' ),
-			'description' => __( 'test value' ),
-			'section' => 'vi_theme_custom_section_general', // Required, core or custom.
-			'settings' => 'vi_theme_test_value',
-			'input_attrs' => array(
-		         'placeholder' => __( 'test value' ),
-      		),
-		)
-	);
+
+
 
 
 /*--------------------------------------------------------------
@@ -1128,22 +576,8 @@ function vi_theme_get_customizer_value( $input = '' )
 
 	switch($output)
 	{
-		case 'color_bg_1':
-		case 'color_bg_2':
-		case 'color_bg_3':
-		case 'color_bg_4':
-		case 'color_bg_b':
-		case 'color_bg_w':
-		case 'color_bg_c':
-    case 'color_bg_i':
-		case 'color_text_1':
-		case 'color_text_2':
-		case 'color_text_3':
-		case 'color_text_4':
-		case 'color_text_b':
-		case 'color_text_w':
-		case 'color_text_c':
-    case 'color_text_i':
+		case 'bs':
+		case 'wp':
 			$output = vi_theme_get_customizer_value($output);
 			break;
 		default :
@@ -1320,67 +754,6 @@ function vi_theme_customize_css_default()
 
 
 
-            .background-image,
-            #content .background-image {
-                background-image: url(<?php echo vi_theme_get_customizer_value('background_image'); ?>);
-            }
-
-            .color-bg-1,
-            #content .color-bg-1 {
-                background-color: <?php echo vi_theme_get_customizer_value('color_bg_1'); ?>;
-            }
-            .color-bg-2,
-            #content .color-bg-2 {
-                background-color: <?php echo vi_theme_get_customizer_value('color_bg_2'); ?>;
-            }
-            .color-bg-3,
-            #content .color-bg-3 {
-                background-color: <?php echo vi_theme_get_customizer_value('color_bg_3'); ?>;
-            }
-            .color-bg-4,
-            #content .color-bg-4 {
-                background-color: <?php echo vi_theme_get_customizer_value('color_bg_4'); ?>;
-            }
-            .color-bg-b,
-            #content .color-bg-b {
-                background-color: <?php echo vi_theme_get_customizer_value('color_bg_b'); ?>;
-            }
-            .color-bg-w,
-            #content .color-bg-w {
-                background-color: <?php echo vi_theme_get_customizer_value('color_bg_w'); ?>;
-            }
-            .color-bg-c,
-            #content .color-bg-c {
-                background-color: <?php echo vi_theme_get_customizer_value('color_bg_c'); ?>;
-            }
-            .color-text-1,
-            #content .color-text-1 {
-                color: <?php echo vi_theme_get_customizer_value('color_text_1'); ?>;
-            }
-            .color-text-2,
-            #content .color-text-2 {
-                color: <?php echo vi_theme_get_customizer_value('color_text_2'); ?>;
-            }
-            .color-text-3,
-            #content .color-text-3 {
-                color: <?php echo vi_theme_get_customizer_value('color_text_3'); ?>;
-            }
-            .color-text-4,
-            #content .color-text-4 {
-                color: <?php echo vi_theme_get_customizer_value('color_text_4'); ?>;
-            }
-            .color-text-b,
-            #content .color-text-b {
-                color: <?php echo vi_theme_get_customizer_value('color_text_b'); ?>;
-            }
-            .color-text-w,
-            #content .color-text-w {
-                color: <?php echo vi_theme_get_customizer_value('color_text_w'); ?>;
-            }
-            .color-text-c
-            #content .color-text-c {
-                color: <?php echo vi_theme_get_customizer_value('color_text_c'); ?>;
-            }
         </style>
     <?php
     $content = ob_get_contents();
