@@ -1178,7 +1178,7 @@ body.modal-main-toggle-on #modal-main-shade{
     top:0px;
     width: 3rem;
 
-    color: #ffffff;
+    color: #000000;
     font-size:0.5rem;
     line-height: 1;
     text-align: center;
@@ -1213,6 +1213,102 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 # Navigation
 --------------------------------------------------------------*/
 
+/* BS menu */
+#masthead .navbar {
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    width:100%;
+
+    font-size:14px;
+}
+#masthead .navbar #nav-header-1 {
+    width:100%;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 120px  calc(100% - 120px);
+    grid-template-areas:
+    		"logo nav"
+    		"button nav";
+}
+/* Bootstrap md+ | for-tablet-landscape-up */
+@media only screen and (min-width: 768px) {
+
+	#masthead .navbar #nav-header-1 {
+	    width:100%;
+	    display: grid;
+	    grid-gap: 10px;
+	    grid-template-columns: 120px  0px  calc(100% - 120px);
+	    grid-template-areas:"logo button nav";
+	}
+
+}
+#masthead .navbar #nav-header-1 > .navbar-brand {
+    grid-area: logo;
+    margin:0;
+}
+#masthead .navbar #nav-header-1 > .navbar-toggler {
+    grid-area: button;
+}
+#masthead .navbar #nav-header-1 > .navbar-collapse {
+    grid-area: nav;
+}
+
+#masthead .navbar .navbar-nav {
+    margin:0;
+}
+/* button */
+#masthead .navbar button.navbar-toggler {
+    float:left;
+
+    border:1px solid #000000;
+}
+#masthead .navbar .navbar-toggler-icon {
+    display:inline-block;
+    height:1em;
+
+    color:#000000;
+    font-family: FontAwesome;
+    font-size:2rem;
+    text-rendering: auto;
+}
+#masthead .navbar .navbar-toggler-icon::before {
+    content: "\f0c9";
+}
+/* links */
+#masthead .navbar a[aria-current="page"],
+#masthead .navbar a[aria-current="page"] {
+    color: #222;
+    font-weight: normal;
+    text-decoration: underline;
+
+    background: #c7be45;
+    border-color: #fff;
+}
+/* drop down items */
+/* generic items */
+#masthead .navbar .navbar-nav {
+    display:flex;
+    flex-flow:column wrap;
+    height:220px;
+}
+#masthead .navbar .navbar-nav > li {
+    margin-right: 1em;
+}
+/* Bootstrap md+ | for-tablet-landscape-up */
+@media only screen and (min-width: 768px) {
+
+	#masthead .navbar .navbar-nav {
+	    display:flex;
+	    flex-flow:row wrap;
+	    justify-content:flex-end;
+	    align-items:flex-start;
+	    height:100%;
+	    width:100%;
+	}
+	#masthead .navbar .navbar-nav > li {
+	    min-width:auto;
+	}
+
+}
 
 /*--------------------------------------------------------------
 # Header Area
