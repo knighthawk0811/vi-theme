@@ -11,6 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <?php if ( is_active_sidebar( 'sidebar-left' ) ) : ?>
     <div id="sidebar-left-1">
-	<?php dynamic_sidebar( 'sidebar-left' ); ?>
-</div>
+    	<?php dynamic_sidebar( 'sidebar-left' ); ?>
+    </div>
 <?php endif; ?>

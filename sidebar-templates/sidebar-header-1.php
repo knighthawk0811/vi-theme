@@ -10,10 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<div id="sidebar-header-1">
-<?php
-    if ( is_active_sidebar( 'sidebar-header-1' ) ) {
-        dynamic_sidebar( 'sidebar-header-1' );
-    }
-?>
-</div><!-- #sidebar-header-1 -->
+
+<?php if ( is_active_sidebar( 'sidebar-header-1' ) ): ?>
+    <div id="sidebar-header-1">
+        <?php dynamic_sidebar( 'sidebar-header-1' ); ?>
+
+    </div><!-- #sidebar-header-1 -->
+<?php endif; ?>
