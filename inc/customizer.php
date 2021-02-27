@@ -9,6 +9,7 @@
 $vi_theme_default_value = array(
     'content_container_width' => '900px',
     'parallax_height' => '20rem',
+    'modal_toggle' => 'yes',
     'content_bg_color' => '#ffffff',
     'content_bg_color_trans' => '100',
     'content_text_color' => '#000000',
@@ -98,9 +99,23 @@ function vi_theme_customize_register( $wp_customize ) {
 
 
 /*--------------------------------------------------------------
-# general
+# section general
 --------------------------------------------------------------*/
 
+//header icon
+$wp_customize->add_setting( 'header_image', array(
+    //default
+    'validate_callback' => 'vi_theme_custom_style_changed',
+    'default' => get_template_directory_uri() . '/image/default-image.png',
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'header_image_control',
+   array(
+      'label' => __( '' ),
+      'description' => esc_html__( 'Select an icon/image to use in the header.' ),
+      'section' => 'vi_theme_custom_section_general', // Required, core or custom.
+      'settings' => 'header_image'
+   )
+) );
 
 // content width for parallax layout
 $wp_customize->add_setting('content_container_width', array(
@@ -143,8 +158,32 @@ $wp_customize->add_control( 'vi_theme_parallax_height_control',
     )
 );
 
+//modal toggale on/off
+$wp_customize->add_setting( 'modal_toggle',
+    array(
+        'default' => 'yes',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'vi_theme_sanitize_radio',
+        'validate_callback' => 'vi_theme_custom_style_changed'
+    )
+);
+$wp_customize->add_control( 'modal_toggle',
+   array(
+      'label' => __( 'Modal Options' ),
+      'description' => esc_html__( 'Toggle Modal Navigation ON or OFF' ),
+      'section' => 'vi_theme_custom_section_general',
+      'priority' => 10, // Optional. Order priority to load the control. Default: 10
+      'type' => 'radio',
+      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
+      'choices' => array( // Optional.
+         'yes' => __( 'Modal ON' ),
+         'no' => __( 'Modal OFF' )
+      )
+   )
+);
+
 /*--------------------------------------------------------------
-# default images
+# section default images
 --------------------------------------------------------------*/
 
 $wp_customize->add_setting( 'content_image', array(
@@ -232,7 +271,7 @@ $wp_customize->add_setting( 'nav_001_type',
 );
 $wp_customize->add_control( 'nav_001_type',
    array(
-      'label' => __( 'Nav1 Type' ),
+      'label' => __( 'Nav1 Options' ),
       'description' => esc_html__( 'Choose what type of navbar Nav1 will be' ),
       'section' => 'vi_theme_custom_section_nav_setting',
       'priority' => 10, // Optional. Order priority to load the control. Default: 10
@@ -245,28 +284,19 @@ $wp_customize->add_control( 'nav_001_type',
    )
 );
 
-$wp_customize->add_setting( 'nav_001_image',
-    array(
-        'default' => 'true',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'nav_001_image',
+$wp_customize->add_setting( 'nav_001_image', array(
+    //default
+    'validate_callback' => 'vi_theme_custom_style_changed',
+    'default' => get_template_directory_uri() . '/image/default-image.png',
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'nav_001_image_control',
    array(
-      'label' => __( 'Logo In Nav1?' ),
-      'description' => esc_html__( 'Will the logo appear in the Nav1 Navigation bar?' ),
-      'section' => 'vi_theme_custom_section_nav_setting',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'true' => __( 'Yes' ),
-         'false' => __( 'No' )
-      )
+      'label' => __( '' ),
+      'description' => esc_html__( 'Select an icon/image to use as the Nav1 icon.' ),
+      'section' => 'vi_theme_custom_section_nav_setting', // Required, core or custom.
+      'settings' => 'nav_001_image'
    )
-);
+) );
 
 //nav_002
 $wp_customize->add_setting( 'nav_002_type',
@@ -279,8 +309,8 @@ $wp_customize->add_setting( 'nav_002_type',
 );
 $wp_customize->add_control( 'nav_002_type',
    array(
-      'label' => __( 'Nav2 Type' ),
-      'description' => esc_html__( 'Choose what type of navbar Nav1 will be' ),
+      'label' => __( 'Nav2 Options' ),
+      'description' => esc_html__( 'Choose what type of navbar Nav2 will be' ),
       'section' => 'vi_theme_custom_section_nav_setting',
       'priority' => 10, // Optional. Order priority to load the control. Default: 10
       'type' => 'radio',
@@ -292,29 +322,19 @@ $wp_customize->add_control( 'nav_002_type',
    )
 );
 
-$wp_customize->add_setting( 'nav_002_image',
-    array(
-        'default' => 'true',
-        'transport' => 'refresh',
-        'sanitize_callback' => 'vi_theme_sanitize_radio',
-        'validate_callback' => 'vi_theme_custom_style_changed'
-    )
-);
-$wp_customize->add_control( 'nav_002_image',
+$wp_customize->add_setting( 'nav_002_image', array(
+    //default
+    'validate_callback' => 'vi_theme_custom_style_changed',
+    'default' => get_template_directory_uri() . '/image/default-image.png',
+) );
+$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'nav_002_image_control',
    array(
-      'label' => __( 'Logo In Nav2?' ),
-      'description' => esc_html__( 'Will the logo appear in the Nav2 Navigation bar?' ),
-      'section' => 'vi_theme_custom_section_nav_setting',
-      'priority' => 10, // Optional. Order priority to load the control. Default: 10
-      'type' => 'radio',
-      'capability' => 'edit_theme_options', // Optional. Default: 'edit_theme_options'
-      'choices' => array( // Optional.
-         'true' => __( 'Yes' ),
-         'false' => __( 'No' )
-      )
+      'label' => __( '' ),
+      'description' => esc_html__( 'Select an icon/image to use as the Nav2 icon.' ),
+      'section' => 'vi_theme_custom_section_nav_setting', // Required, core or custom.
+      'settings' => 'nav_002_image'
    )
-);
-
+) );
 
 
 /*--------------------------------------------------------------
@@ -578,6 +598,8 @@ function vi_theme_get_customizer_value( $input = '' )
 	{
 		case 'bs':
 		case 'wp':
+    case 'yes':
+    case 'no':
 			$output = vi_theme_get_customizer_value($output);
 			break;
 		default :
@@ -648,7 +670,7 @@ endif;
 
 /**
  * output the default style
- * the child theme shoudl use vi_theme_customize_css_child_override rather than rewriting this function
+ * the child theme should use vi_theme_customize_css_child_override rather than rewriting this function
  * only returns the output buffer content, does not actually output anything.
  *
  * @link
@@ -659,32 +681,15 @@ if ( ! function_exists( 'vi_theme_customize_css_default' ) ) :
 function vi_theme_customize_css_default()
 {
 
-    $masthead_bg_img = 'background-image:none';
-    if( get_theme_mod( 'header_bg_image', '0' ) != '0' )
-    {
-        $masthead_bg_img =  'background-image:url("' . get_theme_mod( 'header_bg_image', '0' ) . '")';
-    }
-
-    $content_bg_img = 'background-image:none';
-    if( get_theme_mod( 'header_bg_image', '0' ) != '0' )
-    {
-        $content_bg_img =  'background-image:url("' . get_theme_mod( 'content_bg_image', '0' ) . '")';
-    }
-
-    $footer_bg_img = 'background-image:none';
-    if( get_theme_mod( 'header_bg_image', '0' ) != '0' )
-    {
-        $footer_bg_img =  'background-image:url("' . get_theme_mod( 'footer_bg_image', '0' ) . '")';
-    }
 
     //start capturing the output
     ob_start();
     ?>
         <style type="text/css">
             body {
-                color: <?php echo vi_theme_get_customizer_value('body_text_color'); ?>;
+                color: <?php echo vi_theme_get_customizer_value('content_text_color'); ?>;
 
-                background-color: <?php echo vi_theme_get_customizer_value('body_bg_color'); ?>;
+                background-color: <?php echo vi_theme_get_customizer_value('content_bg_color'); ?>;
             }
 
             .content-container {
@@ -696,63 +701,11 @@ function vi_theme_customize_css_default()
             }
 
 
-            #modal-button {
-                background-color: <?php echo vi_theme_get_customizer_value('modal_button_color'); ?>;
-            }
-            #modal-main-container {
-                color: <?php echo vi_theme_get_customizer_value('modal_text_color'); ?>;
-            }
-            #modal-main-container #modal-bg {
-                background-color: <?php echo vi_theme_get_customizer_value('modal_bg_color'); ?>;
-                opacity:<?php echo( intval(vi_theme_get_customizer_value('modal_background_trans')) / 100); ?>;
-            }
-
-
-            #masthead {
-                color: <?php echo vi_theme_get_customizer_value('header_text_color'); ?>;
-
-                background-color: <?php echo vi_theme_get_customizer_value('header_bg_color'); ?>;
-                <?php echo( $masthead_bg_img . ';' ); ?>
-            }
-
-            #masthead .primary-navigation {
-                color: <?php echo vi_theme_get_customizer_value('header_bs_nav_text_color'); ?>;
-
-                background-color: <?php echo vi_theme_get_customizer_value('header_bs_nav_bg_color'); ?>;
-            }
-            #masthead .main-navigation {
-                color: <?php echo vi_theme_get_customizer_value('header_wp_nav_text_color'); ?>;
-
-                background-color: <?php echo vi_theme_get_customizer_value('header_wp_nav_bg_color'); ?>;
-            }
-
-            #content {
-                color: <?php echo vi_theme_get_customizer_value('content_text_color'); ?>;
-
-                background-color: <?php echo vi_theme_get_customizer_value('content_bg_color'); ?>;
-                <?php echo( $content_bg_img . ';' ); ?>
-            }
 
             #content a:not(.wp-block-button a),
             #content a:not(.wp-block-button a):visited {
                 color: <?php echo vi_theme_get_customizer_value('content_link_color'); ?>;
             }
-
-            #colophon {
-                color: <?php echo vi_theme_get_customizer_value('footer_text_color'); ?>;
-
-                background-color: <?php echo vi_theme_get_customizer_value('footer_bg_color'); ?>;
-                <?php echo( $footer_bg_img . ';' ); ?>
-            }
-
-            #colophon a,
-            #colophon a:visited {
-                color: <?php echo vi_theme_get_customizer_value('footer_link_color'); ?>;
-            }
-
-
-
-
 
         </style>
     <?php
