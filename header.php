@@ -79,8 +79,10 @@ if( in_array( 'blank-iframe', vi_theme_body_class() ) ){
 			    	<nav  class="primary-navigation navbar navbar-expand-md" role="navigation">
 			        <div id="nav-header-1">
 			        <?php if( '0' != get_theme_mod( 'nav_001_image', '0' ) ): ?>
-			        <a class="navbar-brand" href="<?php echo get_bloginfo('url'); ?>"><img src="<?php echo get_theme_mod( 'nav_001_image', '0' ); ?>" / alt="<?php echo get_bloginfo('name'); ?>"></a>
+			        	<a class="navbar-brand" href="<?php echo get_bloginfo('url'); ?>"><img src="<?php echo get_theme_mod( 'nav_001_image', '0' ); ?>" / alt="<?php echo get_bloginfo('name'); ?>"></a>
 			        <?php endif; ?>
+
+			        <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo get_bloginfo( 'name' ); ?></a></h1>
 
 			        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar-collapse-1" aria-controls="bs-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
 			            <span class="navbar-toggler-icon"></span>
@@ -118,7 +120,7 @@ if( in_array( 'blank-iframe', vi_theme_body_class() ) ){
 		    	if( 'bs' == get_theme_mod( 'nav_002_type', 'bs' ) ):
 		    		?>
 			    	<nav  class="primary-navigation navbar navbar-expand-md" role="navigation">
-			        <div id="nav-header-1">
+			        <div id="nav-header-2">
 			        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar-collapse-2" aria-controls="bs-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
 			            <span class="navbar-toggler-icon"></span>
 			        </button>
