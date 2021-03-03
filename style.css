@@ -1224,10 +1224,12 @@ body.modal-main-toggle-on #modal-button .toggle-open{
     width:100%;
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 120px  calc(100% - 120px);
+    grid-template-columns: 160px  calc(100% - 160px);
     grid-template-areas:
+    		"logo title"
     		"logo nav"
-    		"button nav";
+    		"button nav"
+    		". nav";
 }
 /* Bootstrap md+ | for-tablet-landscape-up */
 @media only screen and (min-width: 768px) {
@@ -1236,14 +1238,20 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 	    width:100%;
 	    display: grid;
 	    grid-gap: 10px;
-	    grid-template-columns: 120px  0px  calc(100% - 120px);
-	    grid-template-areas:"logo button nav";
+	    grid-template-columns: 160px  calc(100% - 170px);
+	    grid-template-areas:"logo nav"
+	    					"logo title";
 	}
 
 }
 #masthead .navbar #nav-header-1 > .navbar-brand {
     grid-area: logo;
     margin:0;
+}
+#masthead .navbar #nav-header-1 > .site-title {
+    grid-area: title;
+    font-weight: 600;
+	font-size: 3rem;
 }
 #masthead .navbar #nav-header-1 > .navbar-toggler {
     grid-area: button;
@@ -1274,14 +1282,22 @@ body.modal-main-toggle-on #modal-button .toggle-open{
     content: "\f0c9";
 }
 /* links */
-#masthead .navbar a[aria-current="page"],
-#masthead .navbar a[aria-current="page"] {
+#masthead .navbar ul a {
+	display:inline-block;
+	padding: 0.5em 1em;
+	width:auto;
+
     color: #222;
     font-weight: normal;
-    text-decoration: underline;
+}
+#masthead .navbar ul a[aria-current="page"] {
+    border-bottom: 2px solid #F92524;
+}
+#masthead .navbar ul .menu-item.call-to-action a {
+	color:#ffffff;
 
-    background: #c7be45;
-    border-color: #fff;
+	background-color:#F92524;
+	border-radius: 0.25em;
 }
 /* drop down items */
 /* generic items */
@@ -1291,7 +1307,7 @@ body.modal-main-toggle-on #modal-button .toggle-open{
     height:220px;
 }
 #masthead .navbar .navbar-nav > li {
-    margin-right: 1em;
+    margin-right: 0.5em;
 }
 /* Bootstrap md+ | for-tablet-landscape-up */
 @media only screen and (min-width: 768px) {
@@ -1303,6 +1319,7 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 	    align-items:flex-start;
 	    height:100%;
 	    width:100%;
+	    padding: 2em 2em 0 0;
 	}
 	#masthead .navbar .navbar-nav > li {
 	    min-width:auto;
@@ -1448,6 +1465,26 @@ article > .entry-content > * {
 }
 .font-0-25em {
     font-size:0.25em !important;
+}
+
+/* colors */
+.c-black {
+	color:#000000;
+}
+.c-white {
+	color:#ffffff;
+}
+.c-trans {
+	color:rgba(0,0,0,0);
+}
+.bg-black {
+	background-color:#000000;
+}
+.bg-white {
+	background-color:#ffffff;
+}
+.bg-trans {
+	background-color:rgba(0,0,0,0);
 }
 
 
@@ -1732,10 +1769,13 @@ article > .entry-content > * {
 --------------------------------------------------------------*/
 body > .testing-data {
 	position: fixed;
-	right: 10px;
-	bottom: 10px;
+	right: 0px;
+	bottom: 0px;
+	padding:1em;
+	color:#ffffff;
+	background-color:#000000;
+	opacity:0.7;
 	z-index: 1070;
-	text-shadow: 0.5px 0.5px 0px rgba(255,255,255,0.5), -0.5px -0.5px 0px rgba(0,0,0,0.5);
 }
 /*--------------------------------------------------------------
 # _s, WP Override
@@ -1767,6 +1807,10 @@ body > .modal-backdrop {
 /*--------------------------------------------------------------
 # Templates
 --------------------------------------------------------------*/
+/* home page */
+body.home #primary > #main > article > header.entry-header {
+	display:none;
+}
 /* parallax-header */
 body.parallax-header #masthead #sidebar-header-2 {
 	box-shadow:none;
