@@ -410,7 +410,7 @@ textarea {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	clear: both;
+	/*clear: both;*/
 }
 
 p {
@@ -1776,6 +1776,15 @@ body > .testing-data {
 	background-color:#000000;
 	opacity:0.7;
 	z-index: 1070;
+}
+
+/* woocommerce fixes */
+.product .post-thumbnail {
+	display:none;
+	height:0px;
+	margin:0;
+	padding:0;
+	opacity:0;
 }
 /*--------------------------------------------------------------
 # _s, WP Override

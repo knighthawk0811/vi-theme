@@ -702,7 +702,7 @@ function vi_theme_customize_css_default()
 
 
 
-            #content a:not(.wp-block-button a),
+            #content a:not(.wp-block-button a, .wc-proceed-to-checkout a),
             #content a:not(.wp-block-button a):visited {
                 color: <?php echo vi_theme_get_customizer_value('content_link_color'); ?>;
             }
