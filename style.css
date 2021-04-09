@@ -1349,7 +1349,7 @@ body.modal-main-toggle-on #modal-button .toggle-open{
 
 
 .entry-header,
-article > .entry-content > * {
+article > .entry-content > *:not(.content-container-override) {
     padding:0 0.5rem;
 }
 
@@ -1786,6 +1786,31 @@ body > .testing-data {
 	padding:0;
 	opacity:0;
 }
+
+/* ZOOM override */
+.woocommerce div.product div.images .flex-control-thumbs,
+.woocommerce .widget_layered_nav_filters ul {
+	/* woocommerce*/
+	zoom:unset !important;
+	transform: scale(1);
+}
+.photonic-thumb {
+	/* photonic*/]
+	zoom:unset !important;
+	transform: scale(1);
+}
+.jp-carousel-next-button span,
+.jp-carousel-previous-button span,
+.jp-carousel-slide img,
+body div div.slideshow-controls a,body div div.slideshow-controls a:hover,
+.widgets-list-layout li  {
+	/* jetpack */
+	zoom:unset !important;
+	transform: scale(1);
+}
+
+
+
 /*--------------------------------------------------------------
 # _s, WP Override
 --------------------------------------------------------------*/
