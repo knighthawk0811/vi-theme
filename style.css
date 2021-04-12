@@ -1060,7 +1060,6 @@ body.page {
 header.entry-header > *,
 #content .entry-content > *,
 .content-container {
-	display: block;
 	margin-left:auto;
 	margin-right:auto;
 	max-width:900px;
@@ -1086,6 +1085,9 @@ a:visited:hover{
     text-decoration:underline;
 
     cursor:pointer;
+}
+iframe {
+	display:block;
 }
 /*--------------------------------------------------------------
 # Modal Navigation
